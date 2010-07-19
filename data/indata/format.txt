@@ -1,0 +1,98 @@
+
+o-----------------------------o
+|  cards.xml                  |
+o-----------------------------o
+Contains the information about the cards that is needed to play the
+game.
+
+<cardlist>
+  <card>
+    <name></name>
+    <cost></cost>
+    <loyalty></loyalty>
+    <typelist>
+      <type></type>
+      ...
+    </typelist>
+    <pow></pow>
+    <tgh></tgh>
+    <hand></hand>
+    <life></life>
+    <rulelist>
+      <rule reminder=""></rule>
+      ...
+    </rulelist>
+    <multi type="">
+      ...
+    </multi>
+  </card>
+  ...
+</cardlist>
+
+Only the elements necessary for the specific card will be used. The
+elements are not necessarily ordered as above.
+
+<type> and <rule> elements will be repeated for each type or rule. The
+reminder attribute will only be present if the rule contains reminder
+text. The reminder text will in that case be removed from the rule
+text itself. Types and rules are always in the same order as on the
+card.
+
+<hand> and <life> is used for Vanguard cards.
+
+The <multi> element is used if the card contains multiple facets. This
+only affects flip and double cards. The type attribute will be either
+"flip" or "double".
+
+
+o-----------------------------o
+|  meta.xml                   |
+o-----------------------------o
+Contains the meta-data for the cards.
+
+<metalist>
+  <card>
+    <name></name>
+    <instance>
+      <set></set>
+      <rarity></rarity>
+      <number></number>
+      <artist></artist>
+    </instance>
+    ...
+  </card>
+  ...
+</metalist>
+
+The <set> element contains the set-code for the set. The set-code to
+name mapping is available in setinfo.xml. The <instance> element can
+be repeated any number of times.
+
+Rarity is given as the first letter of the corresponding
+rarity. (Common, Uncommon, Rare, Mythic Rare, Special, Promo, Land)
+
+Number is the collectors number for the card.
+
+
+o-----------------------------o
+|  setinfo.xml                |
+o-----------------------------o
+General information about the sets; release date, card count.
+
+<setlist>
+  <set>
+    <name></name>
+    <block></block>
+    <code></code>
+    <release-date></release-date>
+    <cards></cards>
+    <basic-land></basic-land>
+    <common></common>
+    <uncommon></uncommon>
+    <rare></rare>
+    <mythic-rare></mythic-rare>
+  </set>
+  ...
+</setlist>
+
+<cards> indicated the total numbers of cards in the set.
