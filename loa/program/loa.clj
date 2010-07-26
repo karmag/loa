@@ -21,7 +21,8 @@
   (:use clojure.pprint)
   (:import (java.util.logging Level
                               Logger)
-           java.io.File))
+           java.io.File
+           java.text.SimpleDateFormat))
 
 
 ;;-------------------------------------------------
@@ -220,7 +221,10 @@
   []
   (log/debug "Creating ZIP-file.")
   (zip/create
-   (config/construct-file :zip "mtg-data.zip")
+   (config/construct-file :zip
+                          (format "mtg-data-%s.zip"
+                                  (.format (SimpleDateFormat. "yyyy-MM-dd")
+                                           (System/currentTimeMillis))))
    (concat (map #(vector (config/construct-file :xml %) (str "xml/" %))
                 ["cards.xml"
                  "meta.xml"
@@ -263,20 +267,20 @@
 ;;
 (try
  (with-default-config
-   (comment
-     (let [cards (get-x-cards ["Ungl"]
-                              ["B.F.M"]
-                              [])
-           cards (cleanup/process cards)]
-       (pprint cards)
-       (println "Count:" (count cards))
-       ))
+   (comment)
+   (let [cards (get-x-cards ["Ninth"]
+                            ["Urza"]
+                            [])
+         cards (cleanup/process cards)]
+     (pprint cards)
+     (println "********************")
+     (text/write-text cards nil nil)
+     (println "********************")
+     (println "Count:" (count cards))
+     )
    (println "--------------------------------------------------")
-   ;;(full-run)
-   (full-run-from-disk)
-   (let [[c m s] (from-disk)]
-     (pprint (first c))
-     (pprint (first m)))
+   (full-run)
+   ;;(full-run-from-disk)
    )
  (finally
   (shutdown-agents)))

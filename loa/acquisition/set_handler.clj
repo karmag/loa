@@ -152,7 +152,11 @@
   (let [rule (transform/fix-mana rule)
         [_ text reminder] (map #(when %
                                   (.trim %))
-                               (re-matches #"([^\(]+)(\(.*\))?" rule))]
+                               (re-matches #"(.*?)(\(.*\))?" rule))]
+    (when (and (= 0 (count (or text "")))
+               (= 0 (count (or reminder ""))))
+      (throw (Exception.
+              (str "Rule '" rule "' has no text or reminder-text."))))
     (merge nil
            (when (not= 0 (count (or text "")))
              {:text text})

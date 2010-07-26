@@ -10,6 +10,7 @@
   (when s
     (string/escape {\u00c6 "Ae"
                     \u2014 "-"
+                    \u2019 "'"
                     \u00f6 "o"
                     \u00e0 "a"
                     \u00fb "u"
@@ -56,7 +57,7 @@
     (println (:cost card)))
   (when (:loyalty card)
     (println (:loyalty card)))
-  (println (text-transform/types (:types card)))
+  (println (text-transform/types (map ascii (:types card))))
   (when (:pow card)
     (println (str (:pow card) "/" (:tgh card))))
   (when (:hand card)
@@ -65,8 +66,10 @@
     (doseq [rule (:rules card)]
       (println (str
                 (or (ascii (:text rule)) "")
+                (if (and (:text rule) (:reminder rule))
+                  " " "")
                 (if (:reminder rule)
-                  (format " (%s)" (:reminder rule))
+                  (format "(%s)" (:reminder rule))
                   "")))))
   (doseq [multi (:multi card)]
     (println "----")
