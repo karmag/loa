@@ -267,18 +267,19 @@
 ;;
 (try
  (with-default-config
-   (comment)
-   (let [cards (get-x-cards ["Ninth"]
-                            ["Urza"]
-                            [])
-         cards (cleanup/process cards)]
-     (pprint cards)
-     (println "********************")
-     (text/write-text cards nil nil)
-     (println "********************")
-     (println "Count:" (count cards))
-     )
+   (comment
+     (let [cards (get-x-cards ["Ninth"]
+                              ["Urza"]
+                              [])
+           cards (cleanup/process cards)]
+       (pprint cards)
+       (println "********************")
+       (text/write-text cards nil nil)
+       (println "********************")
+       (println "Count:" (count cards))
+       ))
    (println "--------------------------------------------------")
+   (config/init-paths)
    (full-run)
    ;;(full-run-from-disk)
    )
