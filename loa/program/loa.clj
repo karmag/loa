@@ -280,6 +280,7 @@
        (println "Count:" (count cards))
        ))
    (println "--------------------------------------------------")
+   (config/init-paths)
    (full-run)
    ;;(full-run-from-disk)
    )
