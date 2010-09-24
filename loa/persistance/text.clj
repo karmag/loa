@@ -94,7 +94,8 @@
                       (format " (x%d)" (third %)))))
          (interpose ", ")
          (reduce str)
-         println)))
+         (#(when-not (zero? (count %))
+             (println %))))))
 
 (defn- process-data
   "Prints all cards."

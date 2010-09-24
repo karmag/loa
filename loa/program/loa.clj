@@ -236,8 +236,9 @@
 (defn- remove-unhg
   [cards meta]
   (let [only-unhg (fn [card]
-                    (every? #{"Unhinged" "Unglued"}
-                            (map first (:set-rarity card))))
+                    (and (every? #{"Unhinged" "Unglued"}
+                                 (map first (:set-rarity card)))
+                         (not (zero? (count (:set-rarity card))))))
         cards (remove only-unhg cards)
         names (set (map :name cards))
         meta (filter #(names (:name %)) meta)]
@@ -267,17 +268,17 @@
 ;;
 (try
  (with-default-config
-   (comment)
-   (let [cards (get-x-cards ["Ninth"]
-                            ["Urza"]
-                            [])
-         cards (cleanup/process cards)]
-     (pprint cards)
-     (println "********************")
-     (text/write-text cards nil nil)
-     (println "********************")
-     (println "Count:" (count cards))
-     )
+   (comment
+     (let [cards (get-x-cards ["Ninth"]
+                              ["Urza"]
+                              [])
+           cards (cleanup/process cards)]
+       (pprint cards)
+       (println "********************")
+       (text/write-text cards nil nil)
+       (println "********************")
+       (println "Count:" (count cards))
+       ))
    (println "--------------------------------------------------")
    (full-run)
    ;;(full-run-from-disk)
