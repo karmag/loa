@@ -17,7 +17,8 @@
             [loa.util
              [log :as log]
              [util :as util]
-             [zip :as zip]])
+             [zip :as zip]]
+            [loa.verification [text :as text-check]])
   (:use clojure.pprint)
   (:import (java.util.logging Level
                               Logger)
@@ -244,6 +245,11 @@
         meta (filter #(names (:name %)) meta)]
     [cards meta]))
 
+(defn verify
+  []
+  (log/debug "Verifying data.")
+  (text-check/verify (config/construct-file :text "mtg-data.txt")))
+
 (defn full-run
   []
   (let [[cards meta setinfo] (acquire-and-write-to-disk)
@@ -251,7 +257,8 @@
         cards (concat cards (injection/get-cards))
         [cards meta] (remove-unhg cards meta)]
     (write-all cards meta setinfo)
-    (create-package)))
+    (create-package)
+    (verify)))
 
 (defn full-run-from-disk
   []
@@ -260,7 +267,8 @@
         cards (concat cards (injection/get-cards))
         [cards meta] (remove-unhg cards meta)]
     (write-all cards meta setinfo)
-    (create-package)))
+    (create-package)
+    (verify)))
 
 ;;-------------------------------------------------
 ;;

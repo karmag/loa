@@ -8,18 +8,21 @@
   "Transform to ascii."
   [s]
   (when s
-    (string/escape {\u00c6 "Ae"
-                    \u2014 "-"
-                    \u2019 "'"
-                    \u00f6 "o"
-                    \u00e0 "a"
-                    \u00fb "u"
+    (string/escape {
                     \u00ae ""
+                    \u00c6 "Ae"
+                    \u00e0 "a"
                     \u00e1 "a"
                     \u00e2 "a"
                     \u00e9 "e"
                     \u00ed "i"
-                    \u00fa "u"}
+                    \u00f6 "o"
+                    \u00fa "u"
+                    \u00fb "u"
+                    \u2014 "-"
+                    \u2018 "'"
+                    \u2019 "'"
+                    }
                    s)))
 
 ;;-------------------------------------------------
