@@ -47,7 +47,7 @@
   (doseq [set (sort #(compare (:code %1)
                               (:code %2))
                     (filter #(-> % :code .length (not= 0)) setinfo))]
-    (println (format "%-3s  %-10s  %s"
+    (println (format "%-7s %-10s  %s"
                      (or (:code set) "?")
                      (or (:release-date set) "?")
                      (:name set)))))
