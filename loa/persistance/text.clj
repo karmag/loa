@@ -10,7 +10,7 @@
   (when s
     (string/escape {
                     \u00ae ""
-                    \u00c6 "Ae"
+                    \u00c6 "AE"
                     \u00e0 "a"
                     \u00e1 "a"
                     \u00e2 "a"

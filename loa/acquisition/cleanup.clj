@@ -68,9 +68,9 @@ present and for any specific card corrections.")
 
 (defmethod cleanup-card "Basalt Monolith"
   [card]
-  (assoc card :rule [{:text "Basalt Monolith doesn't untap during your untap step."}
-                     {:text "{T}: Add {3} to your mana pool."}
-                     {:text "{3}: Untap Basalt Monolith."}]))
+  (assoc card :rules [{:text "Basalt Monolith doesn't untap during your untap step."}
+                      {:text "{T}: Add {3} to your mana pool."}
+                      {:text "{3}: Untap Basalt Monolith."}]))
 
 ;;-------------------------------------------------
 ;;
