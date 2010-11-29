@@ -1,3 +1,6 @@
+classes
+lib
+
 data/text/*
 data/tmp-download/*
 data/xml/*
