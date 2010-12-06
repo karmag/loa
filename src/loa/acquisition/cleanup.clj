@@ -72,6 +72,12 @@ present and for any specific card corrections.")
                       {:text "{T}: Add {3} to your mana pool."}
                       {:text "{3}: Untap Basalt Monolith."}]))
 
+(defmethod cleanup-card "Elspeth Tirel"
+  [card]
+  (let [[one two three four] (:rules card)
+        three (update-in three [:text] str " " (:text four))]
+    (assoc card :rules [one two three])))
+
 ;;-------------------------------------------------
 ;;
 ;;  Unhinged half mana/pt
