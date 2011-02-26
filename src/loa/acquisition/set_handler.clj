@@ -8,8 +8,7 @@
              [util :as util]
              [log :as log]])
   (:import java.io.File
-           java.io.StringReader
-           javax.xml.parsers.SAXParserFactory))
+           java.io.StringReader))
 
 (declare parse-raw-card)
 

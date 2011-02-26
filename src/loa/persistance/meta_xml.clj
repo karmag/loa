@@ -14,7 +14,7 @@
          :instance
          (map #(tag %1 (%1 item))
               (filter #(% item)
-                      [:set :rarity :number :artist]))))
+                      [:set :rarity :number :artist :flavor-text]))))
 
 (defn- meta-seq-to-xml
   [item-seq]

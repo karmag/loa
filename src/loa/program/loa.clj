@@ -3,6 +3,7 @@
   (:require [clojure.contrib
              [io :as io]
              [prxml :as prxml]]
+            [loa.acquisition.card-details-handler :as card-details-handler]
             [loa.acquisition.cleanup :as cleanup]
             [loa.acquisition.injection :as injection]
             [loa.acquisition.meta-handler :as meta-handler]
@@ -102,6 +103,12 @@
 ;;
 ;;  Helpers
 ;;
+(defn- get-card-details
+  [meta-item]
+  (card-details-handler/get-card-details
+   (get-in config/*config* [:url :card-details])
+   (:gatherer-id meta-item)))
+
 (defn- get-data
   [get-fn parse-url & names]
   (let [sets (set-handler/get-set-names
@@ -129,10 +136,11 @@
 
 (defn- get-meta
   [& names]
-  (apply get-data
-         meta-handler/get-meta
-         (get-in config/*config* [:url :checklist])
-         names))
+  (let [coll (apply get-data
+                    meta-handler/get-meta
+                    (get-in config/*config* [:url :checklist])
+                    names)]
+    (doall (pmap merge (map get-card-details coll) coll))))
 
 (defn- filter-name
   [cards & names]
@@ -274,24 +282,27 @@
 ;;
 ;;  Main
 ;;
-(try
- (with-default-config
-   (comment
-     (let [cards (get-x-cards ["Ninth"]
-                              ["Urza"]
-                              [])
-           cards (cleanup/process cards)]
-       (pprint cards)
-       (println "********************")
-       (text/write-text cards nil nil)
-       (println "********************")
-       (println "Count:" (count cards))
-       ))
-   (println "--------------------------------------------------")
-   (config/init-paths)
-   (full-run)
-   ;;(full-run-from-disk)
-   )
- (finally
-  (shutdown-agents)))
+(defn -main
+  [& _]
+  (try
+    (with-default-config
+      (comment
+        (let [cards (get-x-cards ["Ninth"]
+                                 ["Urza"]
+                                 [])
+              cards (cleanup/process cards)]
+          (pprint cards)
+          (println "********************")
+          (text/write-text cards nil nil)
+          (println "********************")
+          (println "Count:" (count cards))
+          ))
+      (println "--------------------------------------------------")
+      (config/init-paths)
+      (full-run)
+      ;;(pprint (get-meta "Worldwake"))
+      ;;(full-run-from-disk)
+      )
+    (finally
+     (shutdown-agents))))
 

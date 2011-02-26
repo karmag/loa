@@ -20,6 +20,13 @@
     :name
     (keyword s)))
 
+(defn- get-multiverse-id
+  [xml-node]
+  (->> (get-in xml-node [:attrs :href])
+       (re-matches #".*=(\d+)")
+       second
+       Integer/parseInt))
+
 (defn parse-meta-part
   [xml-part]
   (first
@@ -30,6 +37,8 @@
               [data (get-meta-key (-> part :attrs :class))]
               (= (:type part) :characters) ;; data
               [(assoc data key (:str part)) nil]
+              (and (= key :name) (= :a (:name part))) ;; multiverse id
+              [(assoc data :gatherer-id (get-multiverse-id part)) key]
               :else ;; default
               [data key]))
            [nil key]
