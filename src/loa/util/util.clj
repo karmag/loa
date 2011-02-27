@@ -69,9 +69,10 @@
 ;;
 (defn write-xml
   "Writes the data as xml to *out*."
-  [xml-data]
-  (binding [prxml/*prxml-indent* (if (bound? #'prxml/*prxml-indent*)
-                                   prxml/*prxml-indent*
-                                   4)] ;; TODO does not work properly
-    (prxml/prxml xml-data)
-    (println)))
+  [xml-data & kvs]
+  (let [opt (apply hash-map kvs)
+        indent (:indent opt 1)]
+    (binding [prxml/*prxml-indent* indent]
+      (prxml/prxml [:decl! {:version "1.0"}])
+      (prxml/prxml xml-data)
+      (println))))
