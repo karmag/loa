@@ -148,7 +148,7 @@
 
 (defn- parse-rule
   [rule]
-  (let [rule (transform/fix-mana rule)
+  (let [rule (-> rule transform/fix-mana transform/uppercase-mana)
         [_ text reminder] (map #(when %
                                   (.trim %))
                                (re-matches #"(.*?)(\(.*\))?" rule))]
@@ -191,7 +191,7 @@
 (defmethod parse-value :cost
   [_ & [cost]]
   (when cost
-    {:cost (transform/fix-mana cost)}))
+    {:cost (-> cost transform/fix-mana transform/uppercase-mana)}))
 
 (defmethod parse-value :loyalty
   [_ & [loyalty]]
