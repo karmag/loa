@@ -20,7 +20,8 @@
       "Pow/Tgh:" :pt
       "Rules Text:" :rules
       "Set/Rarity:" :set-rarity
-      "Loyalty:" :loyalty})
+      "Loyalty:" :loyalty
+      "Hand/Life:" :hand-life})
 
 ;;-------------------------------------------------
 ;;
@@ -222,18 +223,10 @@
   {:set-rarity
    (map get-set-rarity (map (memfn trim) (.split setrare ",")))})
 
-;;-------------------------------------------------
-;;
-;;  Fixes
-;;
-(defn- fix-vanguard
-  [card]
-  (if (some #{"Vanguard"} (:types card))
-    (-> card
-        (assoc :hand (:pow card))
-        (assoc :life (:tgh card))
-        (dissoc :pow :tgh))
-    card))
+(defmethod parse-value :hand-life
+  [_ text]
+  (let [[_ hand life] (re-matches #".*([+-]\d+).*([+-]\d+).*" text)]
+    {:hand hand :life life}))
 
 ;;-------------------------------------------------
 ;;
@@ -254,6 +247,7 @@
                          second
                          (.replace "R&D" "R&amp;D") ;; unhinged fixes
                          (.replace " & " " &amp; ")
+                         (.replace "&nbsp;" " ")
                          StringReader.)]
     (let [data (->> (lazy-xml/parse-seq reader)
                     (filter #(= (:type %) :characters))
@@ -270,10 +264,9 @@
 (defn parse-raw-card
   "Transforms raw a card into a proper card."
   [kv-seq]
-  (-> (reduce merge
-              nil
-              (map #(apply parse-value %) kv-seq))
-      fix-vanguard))
+  (reduce merge
+          nil
+          (map #(apply parse-value %) kv-seq)))
 
 ;;-------------------------------------------------
 ;;

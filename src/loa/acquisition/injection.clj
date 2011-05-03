@@ -66,6 +66,11 @@ gatherer.")
            {:text "Permanents the chosen player controls don't untap during his or her untap step."}
            {:text "When the chosen player is attacked or becomes the target of a spell or ability, abandon this scheme."}]})
 
+(def drench-the-soil-in-their-blood
+  {:name "Drench the Soil in Their Blood"
+   :types ["Scheme"]
+   :set-rarity [["Archenemy" :promo]]
+   :rules [{:text "When you set this scheme in motion, after the main phase, there is an additional combat phase followed by an additional main phase. Creatures you control gain vigilance until end of turn."}]})
 
 ;;-------------------------------------------------
 ;;
@@ -274,6 +279,7 @@ gatherer.")
           [perhaps-youve-met-my-cohort
            plots-that-span-centuries
            your-inescapable-doom
-           imprison-this-insolent-wretch]
+           imprison-this-insolent-wretch
+           drench-the-soil-in-their-blood]
           dreamcast-cards
           astral-cards))

@@ -286,23 +286,30 @@
   [& _]
   (try
     (with-default-config
-      (comment
-        (let [cards (get-x-cards ["Ninth"]
-                                 ["Urza"]
-                                 [])
-              cards (cleanup/process cards)]
-          (pprint cards)
-          (println "********************")
-          (text/write-text cards nil nil)
-          (println "********************")
-          (println "Count:" (count cards))
-          ))
-      (println "--------------------------------------------------")
+      (println "---[ FULL RUN ]-------------------------------------")
       (config/init-paths)
-      (full-run)
+      (full-run))
+    (finally
+     (shutdown-agents))))
+
+(defn -debug
+  [& _]
+  (try
+    (with-default-config
+      (println "---[ DEBUG ]----------------------------------------")
+      (config/init-paths)
+      (let [cards (get-x-cards ["Vanguard"]
+                               ["Akroma"]
+                               [])
+            cards (cleanup/process cards)]
+        (pprint cards)
+        (println "********************")
+        (text/write-text cards nil nil)
+        (println "********************")
+        (println "Count:" (count cards))
+        )
       ;;(pprint (get-meta "Worldwake"))
       ;;(full-run-from-disk)
       )
     (finally
      (shutdown-agents))))
-

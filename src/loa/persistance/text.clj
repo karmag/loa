@@ -38,6 +38,33 @@
   [seq]
   (nth seq 2 nil))
 
+(defn- format-mana-cost
+  [cost]
+  (reduce (fn [s item]
+            (if (= \{ (first item))
+              (str s item)
+              (format "%s{%s}" s item)))
+          ""
+          (re-seq #"\{.+?\}|\d+|." cost)))
+
+(defn- fix-planeswalker-rule
+  [rule]
+  (when rule
+    (if-let [[_ cost text] (re-matches #"([+-]?\d+):(.*)" rule)]
+      (format "[%s]%s" cost text)
+      rule)))
+
+(defn- format-rule
+  [rule reminder]
+  (let [rule (fix-planeswalker-rule rule)]
+    (str
+     (or (ascii rule) "")
+     (if (and rule reminder)
+       " " "")
+     (if reminder
+       (format "(%s)" reminder)
+       ""))))
+
 ;;-------------------------------------------------
 ;;
 ;;  Printing
@@ -57,23 +84,17 @@
   [card]
   (println (ascii (:name card)))
   (when (:cost card)
-    (println (:cost card)))
+    (println (format-mana-cost (:cost card))))
+  (println (text-transform/types (map ascii (:types card))))
   (when (:loyalty card)
     (println (:loyalty card)))
-  (println (text-transform/types (map ascii (:types card))))
   (when (:pow card)
     (println (str (:pow card) "/" (:tgh card))))
   (when (:hand card)
     (println (format "Hand %s, life %s" (:hand card) (:life card))))
   (when-not (empty? (:rules card))
     (doseq [rule (:rules card)]
-      (println (str
-                (or (ascii (:text rule)) "")
-                (if (and (:text rule) (:reminder rule))
-                  " " "")
-                (if (:reminder rule)
-                  (format "(%s)" (:reminder rule))
-                  "")))))
+      (println (format-rule (:text rule) (:reminder rule)))))
   (doseq [multi (:multi card)]
     (println "----")
     (print-card multi)))

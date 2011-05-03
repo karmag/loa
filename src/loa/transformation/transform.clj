@@ -2,13 +2,13 @@
 (ns loa.transformation.transform)
 
 (def #^{:private true}
-  mana-symbols "WUBRGXYZ\\d")
+  mana-symbols "WUBRGXYZP\\d")
 
 (def #^{:private true}
-  mana-symbols-all "wubrgxyzWUBRGXYZ\\d")
+  mana-symbols-all "wubrgxyzpWUBRGXYZP\\d")
 
 (def #^{:private true}
-  brace-mana-lowercase-re #"\{[wubrgxyz\d](?:/[wubrgxyz\d])?\}")
+  brace-mana-lowercase-re #"\{[wubrgxyzp\d](?:/[wubrgxyzp\d])?\}")
 
 (defn uppercase-mana
   "Makes all mana symbols uppercase."

@@ -4,5 +4,6 @@
                  [org.clojure/clojure-contrib "1.2.0"]]
   :dev-dependencies [[lein-run "1.0.0"]
                      [swank-clojure "1.2.1"]]
-  :main loa.program.loa
-  :jvm-opts ["-Xmx2g"])
+  :run-aliases {:full [loa.program.loa]
+                :test [loa.program.loa -debug]}
+  :jvm-opts ["-Xmx4g"])
