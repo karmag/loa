@@ -58,6 +58,7 @@ Contains the meta-data for the cards.
       <rarity></rarity>
       <number></number>
       <artist></artist>
+      <flavor-text></flavor-text>
     </instance>
     ...
   </card>
