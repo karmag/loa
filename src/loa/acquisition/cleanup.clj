@@ -78,6 +78,14 @@ present and for any specific card corrections.")
         three (update-in three [:text] str " " (:text four))]
     (assoc card :rules [one two three])))
 
+(defmethod cleanup-card "Rage Extractor"
+  [card]
+  (update-in card [:rules]
+             (fn [[one two]]
+               (list one
+                     {:text
+                      "Whenever you cast a spell with {P} in its mana cost, Rage Extractor deals damage equal to that spell's converted mana cost to target creature or player."}))))
+
 ;;-------------------------------------------------
 ;;
 ;;  Unhinged half mana/pt

@@ -232,7 +232,7 @@ gatherer.")
      :tgh "3"
      :rules [{:text "Flying"}
              {:text "At the beginning of your upkeep, Prismatic Dragon becomes a color chosen at random." :reminder "This effect lasts indefinitely."}
-             {:text "2: Prismatic Dragon becomes a color chosen at random." :reminder "This effect lasts indefinitely."}]}
+             {:text "{2}: Prismatic Dragon becomes a color chosen at random." :reminder "This effect lasts indefinitely."}]}
 
     {:name "Rainbow Knights"
      :cost "WW"
@@ -240,7 +240,7 @@ gatherer.")
      :pow "2"
      :tgh "1"
      :rules [{:text "As Rainbow Knights enters the battlefield, it gains protection from a color chosen at random." :reminder "This effect lasts indefinitely."}
-             {:text "1: Rainbow Knights gains first strike until end of turn."}
+             {:text "{1}: Rainbow Knights gains first strike until end of turn."}
              {:text "WW: Rainbow Knights gets +X/+0 until end of turn, where X is a number chosen randomly from 0 to 2."}]}
 
     {:name "Whimsy"

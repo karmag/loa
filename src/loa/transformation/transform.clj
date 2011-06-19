@@ -2,10 +2,10 @@
 (ns loa.transformation.transform)
 
 (def #^{:private true}
-  mana-symbols "WUBRGXYZP\\d")
+  mana-symbols "WUBRGXYZP\\d+")
 
 (def #^{:private true}
-  mana-symbols-all "wubrgxyzpWUBRGXYZP\\d")
+  mana-symbols-all "wubrgxyzpWUBRGXYZP\\d+")
 
 (def #^{:private true}
   brace-mana-lowercase-re #"\{[wubrgxyzp\d](?:/[wubrgxyzp\d])?\}")
@@ -32,5 +32,6 @@
            [(format "\\{?\\(([%s])/([%s])\\)\\}?"
                     mana-symbols-all
                     mana-symbols-all)
-            "{$1/$2}"]]))
+            "{$1/$2}"]
+           ["\\{(\\d)\\}(\\d)\\}" "{$1$2}"]]))
 
