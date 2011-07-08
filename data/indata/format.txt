@@ -11,7 +11,7 @@ game.
     <cost></cost>
     <loyalty></loyalty>
     <typelist>
-      <type></type>
+      <type type=""></type>
       ...
     </typelist>
     <pow></pow>
@@ -19,7 +19,7 @@ game.
     <hand></hand>
     <life></life>
     <rulelist>
-      <rule reminder=""></rule>
+      <rule no="" reminder=""></rule>
       ...
     </rulelist>
     <multi type="">
@@ -37,6 +37,35 @@ reminder attribute will only be present if the rule contains reminder
 text. The reminder text will in that case be removed from the rule
 text itself. Types and rules are always in the same order as on the
 card.
+
+The type attribute on the <type> element is one of "super", "card" or
+"sub".
+
+    Example:
+    <typelist>
+        <type type="super">Legendary</type>
+        <type type="card">Creature</type>
+        <type type="sub">Bunny</type>
+        <type type="sub">Ogre</type>
+    </typelist>
+
+The no attribute on the <rule> element indicates which rule on the
+original card the rule represents. This starts at 1 and counts up. If
+a rule on a card consists of multiple keyword abilities that rule will
+be split into several rules. The no attribute is used to indicate that
+they originally were on the same line.
+
+    Example:
+    "Haste, trample, protection from white and red"
+
+    would turn into
+
+    <rulelist>
+        <rule no="1">Haste</rule>
+        <rule no="1">Trample</rule>
+        <rule no="1">Protection from white</rule>
+        <rule no="1">Protection from red</rule>
+    </rulelist>
 
 <hand> and <life> is used for Vanguard cards.
 
