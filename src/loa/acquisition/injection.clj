@@ -121,7 +121,7 @@ gatherer.")
     {:name "Murgish Cemetery"
      :cost "4BB"
      :types ["Enchantment"]
-     :rules [{:text "3B, Discard a card: Put an X/X black Zombie token onto the battlefield, where X is a number randomly chosen from 2 to 6."}]}
+     :rules [{:text "{3}{B}, Discard a card: Put an X/X black Zombie token onto the battlefield, where X is a number randomly chosen from 2 to 6."}]}
 
     {:name "Saji's Torrent"
      :cost "1U"
@@ -133,7 +133,7 @@ gatherer.")
      :types ["Creature" "Human" "Cleric"]
      :pow "1"
      :tgh "2"
-     :rules [{:text "T: Choose a number from 1 to 3 at random. Until end of turn, if a source would deal damage to target creature or player, it deals that much damage minus the chosen number to that creature or player instead."}]}
+     :rules [{:text "{T}: Choose a number from 1 to 3 at random. Until end of turn, if a source would deal damage to target creature or player, it deals that much damage minus the chosen number to that creature or player instead."}]}
 
     {:name "Velican Dragon"
      :cost "5RR"
@@ -157,7 +157,7 @@ gatherer.")
      :pow "2"
      :tgh "2"
      :rules [{:text "As Aswan Jaguar enters the battlefield, choose a creature type at random from among all creature types that a creature card in target opponent's decklist has."}
-             {:text "GG, T: Destroy target creature with the chosen type. It can't be regenerated."}]}
+             {:text "{G}{G}, {T}: Destroy target creature with the chosen type. It can't be regenerated."}]}
 
     {:name "Call from the Grave"
      :cost "2B"
@@ -170,7 +170,7 @@ gatherer.")
      :pow "1"
      :tgh "3"
      :rules [{:text "Flying"}
-             {:text "1GG: Perform a random action from the following list:"}
+             {:text "{1}{G}{G}: Perform a random action from the following list:"}
              {:text "A creature chosen at random gains trample and gets +X/+0 until end of turn, where X is its power. At the beginning of the next end step, destroy that creature if it attacked this turn."}
              {:text "You may tap or untap an artifact, creature, or land chosen at random."}
              {:text "If a creature chosen at random has toughness 5 or greater, it gets +4/-4 until end of turn. Otherwise, it gets +4/-X until end of turn, where X is its toughness minus 1."}
@@ -195,20 +195,20 @@ gatherer.")
     {:name "Gem Bazaar"
      :types ["Land"]
      :rules [{:text "As Gem Bazaar enters the battlefield, choose a color at random."}
-             {:text "T: Add one mana of the last chosen color to your mana pool. Then choose a color at random."}]}
+             {:text "{T}: Add one mana of the last chosen color to your mana pool. Then choose a color at random."}]}
 
     {:name "Goblin Polka Band"
      :cost "RR"
      :types ["Creature" "Goblin"]
      :pow "1"
      :tgh "1"
-     :rules [{:text "2, T: Choose any number of target creatures at random. Tap those creatures. Goblins tapped this way do not untap during their controllers' next untap steps. This ability costs R more to activate for each target."}]}
+     :rules [{:text "{2}, {T}: Choose any number of target creatures at random. Tap those creatures. Goblins tapped this way do not untap during their controllers' next untap steps. This ability costs R more to activate for each target."}]}
 
     {:name "Necropolis of Azar"
      :cost "2BB"
      :types ["Enchantment"]
      :rules [{:text "Whenever a nonblack creature is put into a graveyard from the battlefield, put a husk counter on Necropolis of Azar."}
-             {:text "5, Remove a husk counter from Necropolis of Azar: Put a X/Y black Spawn creature token named Spawn of Azar with swampwalk onto the battlefield, where X and Y are numbers chosen at random from 1 to 3."}]}
+             {:text "{5}, Remove a husk counter from Necropolis of Azar: Put a X/Y black Spawn creature token named Spawn of Azar with swampwalk onto the battlefield, where X and Y are numbers chosen at random from 1 to 3."}]}
 
     {:name "Orcish Catapult"
      :cost "XRR"
@@ -218,7 +218,7 @@ gatherer.")
     {:name "Pandora's Box"
      :cost "5"
      :types ["Artifact"]
-     :rules [{:text "3, T: Choose a creature card at random from all players' decklists. For each player, flip a coin. If the flip ends up heads, put a token that's a copy of that creature card onto the battlefield under that player's control."}]}
+     :rules [{:text "{3}, {T}: Choose a creature card at random from all players' decklists. For each player, flip a coin. If the flip ends up heads, put a token that's a copy of that creature card onto the battlefield under that player's control."}]}
 
     {:name "Power Struggle"
      :cost "2UUU"
@@ -241,7 +241,7 @@ gatherer.")
      :tgh "1"
      :rules [{:text "As Rainbow Knights enters the battlefield, it gains protection from a color chosen at random." :reminder "This effect lasts indefinitely."}
              {:text "{1}: Rainbow Knights gains first strike until end of turn."}
-             {:text "WW: Rainbow Knights gets +X/+0 until end of turn, where X is a number chosen randomly from 0 to 2."}]}
+             {:text "{W}{W}: Rainbow Knights gets +X/+0 until end of turn, where X is a number chosen randomly from 0 to 2."}]}
 
     {:name "Whimsy"
      :cost "XUU"

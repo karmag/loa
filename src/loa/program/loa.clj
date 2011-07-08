@@ -261,8 +261,9 @@
 (defn full-run
   []
   (let [[cards meta setinfo] (acquire-and-write-to-disk)
-        cards (cleanup/process cards)
-        cards (concat cards (injection/get-cards))
+        cards (cleanup/process
+               (concat cards
+                       (injection/get-cards)))
         [cards meta] (remove-unhg cards meta)]
     (write-all cards meta setinfo)
     (create-package)
@@ -298,13 +299,16 @@
     (with-default-config
       (println "---[ DEBUG ]----------------------------------------")
       (config/init-paths)
-      (let [cards (get-x-cards ["Vanguard"]
+      (let [cards (get-x-cards ["Planar"]
                                ["Akroma"]
                                [])
             cards (cleanup/process cards)]
         (pprint cards)
         (println "********************")
         (text/write-text cards nil nil)
+        (println "********************")
+        (pprint
+         (map card-xml/card-to-xml cards))
         (println "********************")
         (println "Count:" (count cards))
         )
