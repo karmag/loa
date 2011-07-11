@@ -1,5 +1,6 @@
 classes
 lib
+*.jar
 
 .cake/*
 pom.xml

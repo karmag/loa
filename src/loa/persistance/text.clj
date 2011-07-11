@@ -50,7 +50,7 @@
 (defn- fix-planeswalker-rule
   [rule]
   (when rule
-    (if-let [[_ cost text] (re-matches #"([+-]?\d+):(.*)" rule)]
+    (if-let [[_ cost text] (re-matches #"([+-]?[\dX]+):(.*)" rule)]
       (format "[%s]%s" cost text)
       rule)))
 

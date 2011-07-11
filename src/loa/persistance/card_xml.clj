@@ -87,7 +87,7 @@
     (let [parts (map re-matches
                      (repeat keyword-regex)
                      (map (memfn trim)
-                          (.split rule-text ",")))]
+                          (.split rule-text "[,;]")))]
       (when (every? identity parts)
         (mapcat split-protection
                 (map first parts))))))
