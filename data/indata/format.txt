@@ -70,8 +70,8 @@ they originally were on the same line.
 <hand> and <life> is used for Vanguard cards.
 
 The <multi> element is used if the card contains multiple facets. This
-only affects flip and double cards. The type attribute will be either
-"flip" or "double".
+affects flip, double and transform cards. The type attribute will be
+either "flip", "double" or "transform".
 
 
 o-----------------------------o

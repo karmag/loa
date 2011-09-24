@@ -19,7 +19,7 @@
   [data]
   (when (.contains data "Flavor Text:")
     (->> data
-         (re-find #"(?s)(?m)Flavor Text:.*?(?:P/T:|Expansion:)")
+         (re-find #"(?s)(?m)Flavor Text:.*?(?:P/T:|Expansion:|Watermark:)")
          (re-seq #"class=.cardtextbox.>(.*?)</div>")
          (map second)
          (map #(-> %
