@@ -85,6 +85,8 @@
   (println (ascii (:name card)))
   (when (:cost card)
     (println (format-mana-cost (:cost card))))
+  (when (:color card)
+    (println (format "(%s)" (:color card))))
   (println (text-transform/types (map ascii (:types card))))
   (when (:loyalty card)
     (println (:loyalty card)))

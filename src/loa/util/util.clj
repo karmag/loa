@@ -3,11 +3,13 @@
   (:require [clojure.contrib.http.agent :as http-agent]
             [clojure.contrib.prxml :as prxml]
             [clojure.contrib.io :as io]
+            [clojure.contrib.lazy-xml :as lazy-xml]
             [loa.program.config :as config]
             [loa.util.log :as log])
   (:import (java.io File
                     FileInputStream
-                    InputStreamReader)))
+                    InputStreamReader
+                    StringReader)))
 
 (defn- escape-filename
   "Makes the string filename-friendly."
@@ -76,3 +78,9 @@
       (prxml/prxml [:decl! {:version "1.0"}])
       (prxml/prxml xml-data)
       (println))))
+
+(defn xml-seq
+  "Transforms a string to a lazy sequence of elements as per
+  clojure.contrib.lazy-xml."
+  [string]
+  (lazy-xml/parse-seq (StringReader. string)))

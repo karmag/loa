@@ -16,6 +16,7 @@
      labels
      {"Name:" :name
       "Cost:" :cost
+      "Color:" :color
       "Type:" :types
       "Pow/Tgh:" :pt
       "Rules Text:" :rules
@@ -193,6 +194,10 @@
   [_ & [cost]]
   (when cost
     {:cost (-> cost transform/fix-mana transform/uppercase-mana)}))
+
+(defmethod parse-value :color
+  [_ & [color]]
+  {:color color})
 
 (defmethod parse-value :loyalty
   [_ & [loyalty]]

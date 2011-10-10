@@ -15,18 +15,33 @@
                {:id (Integer/parseInt id)
                 :set (second (re-matches #"(.*) \(.*?\)" set-name))}))))
 
+(defn- get-name
+  [data]
+  (->> (re-find #"(?s)<div class=\"contentTitle\">.*?</div>" data)
+       (#(.replaceAll % "&" "&amp;"))
+       (util/xml-seq)
+       (filter #(= :characters (:type %)))
+       (map :str)
+       (apply str)))
+
 (defn- get-flavor
   [data]
   (when (.contains data "Flavor Text:")
-    (->> data
-         (re-find #"(?s)(?m)Flavor Text:.*?(?:P/T:|Expansion:|Watermark:)")
-         (re-seq #"class=.cardtextbox.>(.*?)</div>")
-         (map second)
-         (map #(-> %
-                   (.replaceAll "<i>" "")
-                   (.replaceAll "</i>" "")))
-         (interpose \newline)
-         (reduce str))))
+    (let [name (get-name data)
+          primary (->> data
+                       (re-find (re-pattern (str "(?s)(?m)Card Name:.*?(" name ".*)")))
+                       second)]
+      (when (and primary
+                 (.contains primary "Flavor Text:"))
+        (->> primary
+             (re-find #"(?s)(?m)Flavor Text:.*?(?:P/T:|Expansion:|Watermark:)")
+             (re-seq #"class=.cardtextbox.>(.*?)</div>")
+             (map second)
+             (map #(-> %
+                       (.replaceAll "<i>" "")
+                       (.replaceAll "</i>" "")))
+             (interpose \newline)
+             (reduce str))))))
 
 (defn- process-data
   [data id]

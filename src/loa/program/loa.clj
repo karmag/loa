@@ -299,20 +299,23 @@
     (with-default-config
       (println "---[ DEBUG ]----------------------------------------")
       (config/init-paths)
-      (let [cards (get-x-cards ["Planar"]
-                               ["Akroma"]
+      (let [cards (get-x-cards ["Innistrad"]
+                               ["Scree" "Stalking Vampire"]
                                [])
             cards (cleanup/process cards)]
         (pprint cards)
         (println "********************")
         (text/write-text cards nil nil)
         (println "********************")
-        (pprint
-         (map card-xml/card-to-xml cards))
-        (println "********************")
+        (comment
+          (pprint
+           (map card-xml/card-to-xml cards))
+          (println "********************"))
         (println "Count:" (count cards))
         )
-      ;;(pprint (get-meta "Worldwake"))
+      (pprint (filter #(or (.contains (:name %) "Scree")
+                           (.contains (:name %) "Stalking"))
+                      (get-meta "Innistrad")))
       ;;(full-run-from-disk)
       )
     (finally

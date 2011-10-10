@@ -9,6 +9,7 @@ game.
   <card>
     <name></name>
     <cost></cost>
+    <color></color>
     <loyalty></loyalty>
     <typelist>
       <type type=""></type>

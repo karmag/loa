@@ -125,6 +125,8 @@
           [(tag :name (:name card)) ;; TODO repetition, ugly, redo
            (when (:cost card)
              (tag :cost (:cost card)))
+           (when (:color card)
+             (tag :color (:color card)))
            (when (:loyalty card)
              (tag :loyalty (:loyalty card)))
            (when-not (empty? (:types card))
