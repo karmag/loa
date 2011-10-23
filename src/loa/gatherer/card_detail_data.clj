@@ -1,7 +1,6 @@
 
-(ns loa.acquisition.card-details-handler
-  (:require (loa.util (log :as log)
-                      (util :as util))))
+(ns loa.gatherer.card-detail-data
+  (:require (loa.util (xml :as xml_))))
 
 ;;-------------------------------------------------
 ;;
@@ -19,7 +18,7 @@
   [data]
   (->> (re-find #"(?s)<div class=\"contentTitle\">.*?</div>" data)
        (#(.replaceAll % "&" "&amp;"))
-       (util/xml-seq)
+       (xml_/xml-seq)
        (filter #(= :characters (:type %)))
        (map :str)
        (apply str)))
@@ -50,13 +49,10 @@
     {:flavor-text flavor
      :other (remove #{id} others)}))
 
-;;-------------------------------------------------
+;;--------------------------------------------------
 ;;
 ;;  Interface
 ;;
-(defn get-card-details
-  [card-details-url gatherer-id]
-  ;;(log/debug (str "Getting card-details for id [" gatherer-id "]"))
-  (-> (format card-details-url gatherer-id)
-      util/get-url-data
-      (process-data gatherer-id)))
+(defn get-details
+  [page id]
+  (process-data page id))

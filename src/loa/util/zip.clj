@@ -1,6 +1,6 @@
 
 (ns loa.util.zip
-  (:require [clojure.java.io :as io])
+  (:require [clojure.java.io :as io_])
   (:import java.io.FileOutputStream
            (java.util.zip ZipEntry
                           ZipOutputStream)))
@@ -12,6 +12,6 @@
   (with-open [fos (FileOutputStream. outfile)
               out (ZipOutputStream. fos)]
     (doseq [[file entry-name] infiles]
-      (println file "->" entry-name)
+      (println file "->" entry-name) ;; TODO reporting
       (.putNextEntry out (ZipEntry. entry-name))
-      (io/copy file out))))
+      (io_/copy file out))))

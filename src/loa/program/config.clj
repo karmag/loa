@@ -2,8 +2,6 @@
 (ns loa.program.config
   (:import java.io.File))
 
-(def *config*)
-
 (defn- make-file
   [& parts]
   (reduce (fn [f s]
@@ -25,14 +23,13 @@
            :checklist "http://gatherer.wizards.com/Pages/Search/Default.aspx?output=checklist&set=[%%22%s%%22]&special=true"
            :card-details "http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=%d"}}))
 
-(defn init-paths
-  "Creates all required paths if they do not exist."
-  []
-  (doseq [f (vals (:path *config*))]
-    (.mkdirs f)))
-
-(defn construct-file
-  [path filename]
-  (File. (get-in *config* [:path path])
+(defn get-file
+  [config path filename]
+  (File. (get-in config [:path path])
          filename))
 
+(defn get-url
+  [config url & args]
+  (let [url (get-in config [:url url])]
+    (-> (apply format url args)
+        (.replaceAll " " "%20"))))

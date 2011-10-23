@@ -1,17 +1,17 @@
 
 (ns loa.util.log)
 
-(def #^{:private true}
-     writer-agent (agent nil))
+(def *logger* (atom println))
 
-(defn- writer-fn
-  [_ level msg]
-  (println (format "<%s> %s" (str level) (str msg))))
+(defn set-logger!
+  [f]
+  (reset! *logger* f))
 
-(defn- write-log
-  [level msg]
-  (send writer-agent writer-fn level msg))
+(defn log
+  [level & msg]
+  (@*logger* level (apply str msg)))
 
-(defn debug
-  [msg]
-  (write-log :debug msg))
+(defn debug [& msg] (apply log :debug msg))
+(defn info  [& msg] (apply log :info  msg))
+(defn warn  [& msg] (apply log :warn  msg))
+(defn error [& msg] (apply log :error msg))

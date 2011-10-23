@@ -1,8 +1,5 @@
-(comment
-  "This namespace constructs the missing cards that are not available in
-gatherer.")
 
-(ns loa.acquisition.injection)
+(ns loa.transform.injection)
 
 ;;-------------------------------------------------
 ;;
@@ -270,16 +267,12 @@ gatherer.")
 ;;
 ;;  Interface
 ;;
-(defn get-cards
-  []
-  (concat [celestine-reef
-           horizon-boughs
-           mirrored-depths
-           tember-city]
-          [perhaps-youve-met-my-cohort
-           plots-that-span-centuries
-           your-inescapable-doom
-           imprison-this-insolent-wretch
+(defn process
+  [cards]
+  (concat cards
+          [celestine-reef horizon-boughs mirrored-depths tember-city]
+          [perhaps-youve-met-my-cohort plots-that-span-centuries
+           your-inescapable-doom imprison-this-insolent-wretch
            drench-the-soil-in-their-blood]
           dreamcast-cards
           astral-cards))

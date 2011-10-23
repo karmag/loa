@@ -1,9 +1,5 @@
 (defproject loa "1.0.0-SNAPSHOT"
   :description "A crawler/parser for wizards of the coast's gatherer."
-  :dependencies [[org.clojure/clojure "1.2.0"]
+  :dependencies [[org.clojure/clojure "1.2.1"]
                  [org.clojure/clojure-contrib "1.2.0"]]
-  :dev-dependencies [[lein-run "1.0.0"]
-                     [swank-clojure "1.2.1"]]
-  :run-aliases {:full [loa.program.loa]
-                :test [loa.program.loa -debug]}
-  :jvm-opts ["-Xmx4g"])
+  :main loa.program.loa)
