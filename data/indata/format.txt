@@ -116,14 +116,14 @@ General information about the sets; release date, card count.
     <block></block>
     <code></code>
     <release-date></release-date>
-    <cards></cards>
-    <basic-land></basic-land>
-    <common></common>
-    <uncommon></uncommon>
-    <rare></rare>
-    <mythic-rare></mythic-rare>
+    <cards>
+      <total></total>
+      <basic-land></basic-land>
+      <common></common>
+      <uncommon></uncommon>
+      <rare></rare>
+      <mythic-rare></mythic-rare>
+    </cards>
   </set>
   ...
 </setlist>
-
-<cards> indicated the total numbers of cards in the set.
