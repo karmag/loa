@@ -26,6 +26,31 @@
   [card]
   (assoc-in card [:cost] "2RW"))
 
+(defmethod cleanup-card "Budoka Pupil"
+  [card]
+  (assoc-in card
+            [:multi]
+            [{:multi-type :flip
+              :name "Ichiga, Who Topples Oaks"
+              :types ["Legendary" "Creature" "Spirit"]
+              :pow "4"
+              :tgh "3"
+              :rules [{:text "Trample"}
+                      {:text "Remove a ki counter from Ichiga, Who Topples Oaks: Target creature gets +2/+2 until end of turn."}]
+              :set-rarity [["Betrayers of Kamigawa" :uncommon]]}]))
+
+(defmethod cleanup-card "Cunning Bandit"
+  [card]
+  (assoc-in card
+            [:multi]
+            [{:multi-type :flip
+              :name "Azamuki, Treachery Incarnate"
+              :types ["Legendary" "Creature" "Spirit"]
+              :pow "5"
+              :tgh "2"
+              :rules [{:text "Remove a ki counter from Azamuki, Treachery Incarnate: Gain control of target creature until end of turn."}]
+              :set-rarity [["Betrayers of Kamigawa" :uncommon]]}]))
+
 ;;--------------------------------------------------
 ;;
 ;;  Interface

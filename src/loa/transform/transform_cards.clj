@@ -2,7 +2,7 @@
 (ns loa.transform.transform-cards)
 
 (def transformers
-  {;; Innistrad
+  { ;; Innistrad
    "Hanweir Watchkeep"      "Bane of Hanweir"
    "Bloodline Keeper"       "Lord of Lineage"
    "Civilized Scholar"      "Homicidal Brute"
@@ -22,7 +22,22 @@
    "Tormented Pariah"       "Rampaging Werewolf"
    "Ulvenwald Mystics"      "Ulvenwald Primordials"
    "Village Ironsmith"      "Ironfang"
-   "Villagers of Estwald"   "Howlpack of Estwald"})
+   "Villagers of Estwald"   "Howlpack of Estwald"
+   ;; Dark Ascension
+   "Loyal Cathar"               "Unhallowed Cathar"
+   "Soul Seizer"                "Ghastly Haunting"
+   "Chosen of Markov"           "Markov's Servant"
+   "Ravenous Demon"             "Archdemon of Greed"
+   "Afflicted Deserter"         "Werewolf Ransacker"
+   "Hinterland Hermit"          "Hinterland Scourge"
+   "Mondronen Shaman"           "Tovolar's Magehunter"
+   "Lambholt Elder"             "Silverpelt Werewolf"
+   "Scorned Villager"           "Moonscarred Werewolf"
+   "Wolfbitten Captive"         "Krallenhorde Killer"
+   "Huntmaster of the Fells"    "Ravager of the Fells"
+   "Chalice of Life"            "Chalice of Death"
+   "Elbrus, the Binding Blade"  "Withengar Unbound"
+   })
 
 (defn- fix-transform-cards
   [cards]

@@ -29,6 +29,12 @@
                     names))
             cards)))
 
+(defn- realize-cards
+  [cards]
+  (dorun
+   (pmap #(dorun (:meta %))
+         cards)))
+
 (defn- run-cards
   [opt config]
   (let [sets (apply get-sets config (:set opt))
@@ -44,6 +50,7 @@
                      (let [details (command_/get-card-details config card)]
                        (command_/add-card-details card details)))
                    cards)]
+    (realize-cards cards)
     (when (:debug opt)
       (pprint cards))
     (when (:write opt)

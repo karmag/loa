@@ -1,5 +1,6 @@
 
 (ns loa.util.xml
+  (:refer-clojure :exclude (xml-seq))
   (:require (clojure.contrib (lazy-xml :as lazy-xml_)
                              (prxml :as prxml_)))
   (import (java.io StringReader
