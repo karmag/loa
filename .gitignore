@@ -4,6 +4,7 @@ lib
 
 .cake/*
 pom.xml
+.lein-deps-sum
 
 data/text/*
 data/tmp-download/*

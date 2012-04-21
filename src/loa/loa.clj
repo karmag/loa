@@ -1,5 +1,5 @@
 
-(ns loa.program.loa
+(ns loa.loa
   (:use clojure.pprint
         clojure.contrib.trace)
   (:require (loa.program (command :as command_))
