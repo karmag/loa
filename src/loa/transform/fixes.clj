@@ -51,6 +51,16 @@
               :rules [{:text "Remove a ki counter from Azamuki, Treachery Incarnate: Gain control of target creature until end of turn."}]
               :set-rarity [["Betrayers of Kamigawa" :uncommon]]}]))
 
+(defmethod cleanup-card "Shield of Kaldra"
+  [card]
+  (update-in card
+             [:meta]
+             #(map (fn [item]
+                     (if (= (:set item) "Promo set for Gatherer Promo")
+                       (assoc item :set "Promo set for Gatherer" :rarity :rare)
+                       item))
+                   %)))
+
 ;;--------------------------------------------------
 ;;
 ;;  Interface
