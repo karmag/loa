@@ -7,7 +7,8 @@
                           (set-data :as set-data_))
             (loa.input (set-info :as set-info_))
             (loa.logic (card-meta-merge :as card-meta-merge_)
-                       (card-details-merge :as card-details-merge_))
+                       (card-details-merge :as card-details-merge_)
+                       (set-code-update :as set-code-update_))
             (loa.program (config :as config_)
                          (file-writer :as file-writer_))
             (loa.transform (transform :as transform_))
@@ -92,6 +93,10 @@
 (defn add-card-details
   [card detail-coll]
   (card-details-merge_/process card detail-coll))
+
+(defn fix-set-codes
+  [config set-coll card-coll]
+  (set-code-update_/process config set-coll card-coll))
 
 ;;--------------------------------------------------
 ;;

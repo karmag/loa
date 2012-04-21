@@ -49,9 +49,11 @@
         cards (map (fn [card]
                      (let [details (command_/get-card-details config card)]
                        (command_/add-card-details card details)))
-                   cards)]
+                   cards)
+        sets (command_/fix-set-codes config sets cards)]
     (realize-cards cards)
     (when (:debug opt)
+      (pprint sets)
       (pprint cards))
     (when (:write opt)
       (command_/write-cards config cards)
