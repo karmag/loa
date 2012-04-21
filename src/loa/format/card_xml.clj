@@ -1,7 +1,8 @@
 
 (ns loa.format.card-xml
   "Transforms data into xml format."
-  (:require (loa.util (data :as data_)
+  (:require (loa.format (common :as common_))
+            (loa.util (data :as data_)
                       (xml :as xml_))))
 
 (declare card-to-xml)
@@ -37,7 +38,7 @@
   (filter identity
           [(tag :name (:name card)) ;; TODO repetition, ugly, redo
            (when (:cost card)
-             (tag :cost (:cost card)))
+             (tag :cost (common_/format-mana (:cost card))))
            (when (:color card)
              (tag :color (:color card)))
            (when (:loyalty card)

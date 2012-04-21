@@ -1,6 +1,7 @@
 
 (ns loa.format.card-text
-  (:require (loa.util (data :as data_)
+  (:require (loa.format (common :as common_))
+            (loa.util (data :as data_)
                       (util :as util_))))
 
 ;;-------------------------------------------------
@@ -15,15 +16,6 @@
 (defn- third
   [seq]
   (nth seq 2 nil))
-
-(defn- format-mana-cost
-  [cost]
-  (reduce (fn [s item]
-            (if (= \{ (first item))
-              (str s item)
-              (format "%s{%s}" s item)))
-          ""
-          (re-seq #"\{.+?\}|\d+|." cost)))
 
 (defn- fix-planeswalker-rule
   [rule]
@@ -86,7 +78,7 @@
   (let [strings
         [(util_/ascii-string (:name card))
          (when (:cost card)
-           (format-mana-cost (:cost card)))
+           (common_/format-mana (:cost card)))
          (when (:color card)
            (format "(%s)" (:color card)))
          (from-types (map util_/ascii-string (:types card)))
