@@ -102,6 +102,8 @@
 (defn- from-meta
   [meta set-map]
   (let [meta (->> meta
+                  (map #(select-keys % [:set :code :rarity :number]))
+                  set
                   (sort-by #(-> % :set set-map :release-date))
                   (map (fn [{:keys [set rarity]}]
                          (str (-> set set-map :code) " "
