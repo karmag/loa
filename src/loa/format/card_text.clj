@@ -6,6 +6,38 @@
 
 ;;-------------------------------------------------
 ;;
+;;  Text manipulation
+;;
+(defn- lowercase-first
+  [text]
+  (let [[c & _] text]
+    (if (Character/isUpperCase c)
+      (str (Character/toLowerCase c)
+           (.substring text 1))
+      text)))
+
+(defn- uppercase-first
+  [text]
+  (let [[c & _] text]
+    (if (Character/isLowerCase c)
+      (str (Character/toUpperCase c)
+           (.substring text 1))
+      text)))
+
+(defn- to-sentence
+  "Uppercases first character and adds a '.' if needed."
+  [text]
+  (let [text (uppercase-first text)]
+    (if (= \. (last text))
+      text
+      (str text "."))))
+
+(defn- clear-double-space
+  [text]
+  (.replaceAll text "  " " "))
+
+;;-------------------------------------------------
+;;
 ;;  Helpers
 ;;
 (defn- get-count
@@ -28,7 +60,7 @@
   [text]
   (when text
     (.replaceAll text
-                 "([Pp]rotection) from (\\w+), protection from (\\w+)"
+                 "([Pp]rotection) from (\\w+), [Pp]rotection from (\\w+)"
                  "$1 from $2 and from $3")))
 
 (defn- from-rule
@@ -39,7 +71,7 @@
      (if (and rule reminder)
        " " "")
      (if reminder
-       (format "(%s)" reminder)
+       (format "(%s)" (to-sentence reminder))
        ""))))
 
 (defn- from-single-rule
@@ -47,7 +79,7 @@
   (let [reminder (-> rule-coll first :reminder)
         text (map :text rule-coll)]
     (from-rule (->> (cons (first text)
-                          (map (memfn toLowerCase) (rest text)))
+                          (map lowercase-first (rest text)))
                     (interpose ", ")
                     (reduce str)
                     restore-protection-rule)
@@ -58,7 +90,8 @@
   (let [lines (partition-by :no rule-coll)]
     (->> (map from-single-rule lines)
          (interpose \newline)
-         (apply str))))
+         (apply str)
+         clear-double-space)))
 
 (let [pre-type? (apply conj data_/super-type data_/card-type)]
   (defn- from-types
