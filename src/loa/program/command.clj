@@ -12,7 +12,8 @@
             (loa.program (config :as config_)
                          (file-writer :as file-writer_))
             (loa.transform (transform :as transform_))
-            (loa.util (util :as util_)
+            (loa.util (log :as log_)
+                      (util :as util_)
                       (zip :as zip_)))
   (:import java.text.SimpleDateFormat))
 
@@ -104,25 +105,25 @@
 ;;
 (defn write-cards
   [config cards]
-  (println "Write cards")
+  (log_/info "Write cards")
   (with-open [writer (file-writer_/make-writer config :xml "cards.xml")]
     (file-writer_/card-list writer cards)))
 
 (defn write-meta
   [config cards sets]
-  (println "Write meta")
+  (log_/info "Write meta")
   (with-open [writer (file-writer_/make-writer config :xml "meta.xml")]
     (file-writer_/meta-list writer cards sets)))
 
 (defn write-setinfo
   [config set-coll]
-  (println "Write set-info")
+  (log_/info "Write set-info")
   (with-open [writer (file-writer_/make-writer config :xml "setinfo.xml")]
     (file-writer_/setinfo writer set-coll)))
 
 (defn write-cards-text
   [config card-coll set-coll]
-  (println "Write cards (text)")
+  (log_/info "Write cards (text)")
   (let [writer (file-writer_/make-writer config :text "mtg-data.txt")]
     (file-writer_/card-list-text writer card-coll set-coll)))
 
@@ -132,7 +133,7 @@
 ;;
 (defn create-package
   [config]
-  (println "Creating zip")
+  (log_/info "Creating zip")
   (let [zipname (format "mtg-data-%s.zip"
                         (.format (SimpleDateFormat. "yyyy-MM-dd")
                                  (System/currentTimeMillis)))]

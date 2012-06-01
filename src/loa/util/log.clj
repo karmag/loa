@@ -1,15 +1,25 @@
 
 (ns loa.util.log)
 
-(def *logger* (atom println))
+(defn log-fn
+  [level & msg]
+  (println (format "<%5s> %s"
+                   (name level)
+                   (reduce str
+                           (interpose " " msg)))))
 
-(defn set-logger!
-  [f]
-  (reset! *logger* f))
+(def throttle (agent log-fn))
+
+(defn- perform-log
+  [logger & args]
+  (apply logger args)
+  logger)
 
 (defn log
   [level & msg]
-  (@*logger* level (apply str msg)))
+  (apply send throttle perform-log level msg)
+  (await throttle)
+  nil)
 
 (defn debug [& msg] (apply log :debug msg))
 (defn info  [& msg] (apply log :info  msg))

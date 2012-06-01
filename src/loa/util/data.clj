@@ -4,7 +4,8 @@
 (def super-type #{"Basic" "Legendary" "Ongoing" "Snow" "World"})
 
 (def card-type #{"Artifact" "Creature" "Enchantment" "Instant" "Land" "Plane"
-                 "Planeswalker" "Scheme" "Sorcery" "Tribal" "Vanguard"})
+                 "Planeswalker" "Scheme" "Sorcery" "Tribal" "Vanguard"
+                 "Phenomenon"})
 
 (def keyword-ability
   #{ ;; general

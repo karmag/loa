@@ -2,7 +2,8 @@
 (ns loa.util.util
   (:require (clojure.contrib (io :as io_))
             (clojure.contrib.http (agent :as http-agent_))
-            (loa.util (data :as data_)))
+            (loa.util (data :as data_)
+                      (log :as log_)))
   (:import java.io.File))
 
 (defn- escape-filename
@@ -17,7 +18,7 @@
   (let [file (File. (get-in config [:path :tmp])
                     (escape-filename url))]
     (when-not (.exists file)
-      (println (str "Downloading: " url)) ;; TODO proper reporting
+      (log_/debug (str "Downloading: " url))
       (io_/spit file
                 (-> url http-agent_/http-agent http-agent_/string)))
     (io_/slurp* file)))
