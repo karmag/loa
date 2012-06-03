@@ -9,6 +9,7 @@
              (keyword-split :as keyword-split_)
              (mana-symbol :as mana-symbol_)
              (multi-name-cards :as multi-name-cards_)
+             (plane-chaos :as plane-chaos_)
              (raw-card :as raw-card_)
              (reminder :as reminder_)
              (remove-tokens :as remove-tokens_)
@@ -48,6 +49,10 @@
 (defmethod process-inner :multi-name-cards
   [_ cards]
   (multi-name-cards_/process cards))
+
+(defmethod process-inner :plane-chaos
+  [_ cards]
+  (map plane-chaos_/process cards))
 
 (defmethod process-inner :raw-card
   [_ cards]
@@ -91,4 +96,5 @@
        (process :flip-cards)
        (process :transform-cards)
        (process :fixes)
-       (process :keyword-split)))
+       (process :keyword-split)
+       (process :plane-chaos)))
