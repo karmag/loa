@@ -61,6 +61,17 @@
                        item))
                    %)))
 
+(defmethod cleanup-card "Forest"   [card] (dissoc card :rules))
+(defmethod cleanup-card "Island"   [card] (dissoc card :rules))
+(defmethod cleanup-card "Mountain" [card] (dissoc card :rules))
+(defmethod cleanup-card "Plains"   [card] (dissoc card :rules))
+(defmethod cleanup-card "Swamp"    [card] (dissoc card :rules))
+(defmethod cleanup-card "Snow-Covered Forest"   [card] (dissoc card :rules))
+(defmethod cleanup-card "Snow-Covered Island"   [card] (dissoc card :rules))
+(defmethod cleanup-card "Snow-Covered Mountain" [card] (dissoc card :rules))
+(defmethod cleanup-card "Snow-Covered Plains"   [card] (dissoc card :rules))
+(defmethod cleanup-card "Snow-Covered Swamp"    [card] (dissoc card :rules))
+
 ;;--------------------------------------------------
 ;;
 ;;  Interface
