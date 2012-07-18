@@ -1,0 +1,40 @@
+body {
+    background: #dddddd;
+    font-family: monospace;
+}
+
+th, td {
+    vertical-align: top;
+}
+
+th {
+    background: white;
+    font-weight: bold;
+}
+
+td {
+    background: #d0d0d0;
+}
+
+.diff_heading {
+    background: white;
+}
+
+.diff_added {
+    color: #336600;
+    font-weight: bold;
+}
+
+.diff_removed {
+    color: red;
+    font-weight: bold;
+}
+
+.diff_altered {
+    color: #001154;
+    font-weight: bold;
+}
+
+.diff_context {
+    color: black;
+}
