@@ -89,6 +89,10 @@ Contains the meta-data for the cards.
       <number></number>
       <artist></artist>
       <flavor-text></flavor-text>
+      <multi>
+        <artist></artist>
+        <flavor-text></flavor-text>
+      </multi>
     </instance>
     ...
   </card>
@@ -103,6 +107,10 @@ Rarity is given as the first letter of the corresponding
 rarity. (Common, Uncommon, Rare, Mythic Rare, Special, Promo, Land)
 
 Number is the collectors number for the card.
+
+<multi> may be present if the card has multiple facets. It contains
+the data relevant to that facet but does not duplicate data that can
+be found elsewhere.
 
 
 o-----------------------------o

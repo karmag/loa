@@ -3,8 +3,8 @@
 
 (defn log-fn
   [level & msg]
-  (println (format "<%5s> %s"
-                   (name level)
+  (println (format "<%s> %s"
+                   (.toUpperCase (name level))
                    (reduce str
                            (interpose " " msg)))))
 

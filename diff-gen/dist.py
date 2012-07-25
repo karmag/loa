@@ -184,6 +184,10 @@ def make_index_html(packs):
     intro.text('Source code for all of this at ')
     intro.a('github', href='https://github.com/karmag/loa')
     intro.text('.')
+    intro.br()
+    intro.text('Feedback at ')
+    intro.a('slightlymagic', href='http://www.slightlymagic.net/forum/viewtopic.php?f=27&t=1347')
+    intro.text('.')
 
     with open('index.html', 'w') as f:
         f.write(str(root))
