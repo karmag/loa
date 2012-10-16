@@ -23,8 +23,9 @@
 ;;
 (defn make-config
   "Construct a configuration based on the root path."
-  [rootpath]
-  (config_/create-config rootpath))
+  [rootpath opt]
+  (assoc (config_/create-config rootpath)
+    :opt opt))
 
 (defn setup-paths
   "Creates all required paths if they do not exist."
@@ -136,13 +137,14 @@
   (log_/info "Creating zip")
   (let [zipname (format "mtg-data-%s.zip"
                         (.format (SimpleDateFormat. "yyyy-MM-dd")
-                                 (System/currentTimeMillis)))]
+                                 (System/currentTimeMillis)))
+        include-meta (-> config :opt :meta)]
     (zip_/create
      (config_/get-file config :zip zipname)
      (concat (map #(vector (config_/get-file config :xml %) (str "xml/" %))
-                  ["cards.xml"
-                   "meta.xml"
-                   "setinfo.xml"])
+                  (if include-meta
+                    ["cards.xml" "meta.xml" "setinfo.xml"]
+                    ["cards.xml" "setinfo.xml"]))
              [[(config_/get-file config :indata "format.txt") "xml/format.txt"]]
              (map #(vector (config_/get-file config :text %) (str "text/" %))
                   ["mtg-data.txt"])))))
