@@ -1,150 +1,92 @@
-
 (ns loa.program.command
-  "High-level functions for running loa."
-  (:require (loa.gatherer (card-data :as card-data_)
-                          (card-detail-data :as card-detail-data_)
-                          (meta-data :as meta-data_)
-                          (set-data :as set-data_))
-            (loa.input (set-info :as set-info_))
-            (loa.logic (card-meta-merge :as card-meta-merge_)
-                       (card-details-merge :as card-details-merge_)
-                       (set-code-update :as set-code-update_))
-            (loa.program (config :as config_)
-                         (file-writer :as file-writer_))
-            (loa.transform (transform :as transform_))
-            (loa.util (log :as log_)
-                      (util :as util_)
-                      (zip :as zip_)))
-  (:import java.text.SimpleDateFormat))
+  (:use clojure.pprint)
+  (:require (loa.format (card-xml :as card-xml-))
+            (loa.indata (set-info :as set-info-))
+            (loa.program (config :as config-)
+                         (process :as process-)
+                         (work :as work-))
+            (loa.util (xml :as xml-))
+            (loa.validation (card-validation :as card-validation-))))
 
-;;--------------------------------------------------
-;;
-;;  Setup
-;;
-(defn make-config
-  "Construct a configuration based on the root path."
-  [rootpath opt]
-  (assoc (config_/create-config rootpath)
-    :opt opt))
+(defn- progress-report! []
+  (let [stat (fn [key]
+               (format "%s: %d / %d"
+                       (name key)
+                       (get-in @process-/status [key :complete])
+                       (get-in @process-/status [key :total])))
+        snapshot (process-/snapshot)
+        q (format "Queue: %d" (count (:queue snapshot)))
+        failed (format "Failed: %d" (count (:failed snapshot)))
+        workers (format "Workers: %d / %d"
+                        (:workers-current snapshot)
+                        (:workers-max snapshot))]
+    (->> (map stat [:main :set :card :meta :language :file])
+         (concat [q failed workers])
+         (interpose \tab)
+         (reduce str)
+         println)))
 
-(defn setup-paths
-  "Creates all required paths if they do not exist."
-  [config]
-  (doseq [f (vals (:path config))]
-    (.mkdirs f)))
+(defn- fail-report! []
+  (doseq [{:keys [exception task]} (:failed (process-/snapshot))]
+    (println (format "Failed task: %s" (:name task)))
+    (.printStackTrace exception (java.io.PrintWriter. *out*)))
+  (flush))
 
-;;--------------------------------------------------
-;;
-;;  Data fetching
-;;
-(defn get-sets
-  "Returns all set objects."
-  [config]
-  (let [page (util_/get-url-data config
-                                 (config_/get-url config :main))
-        csv-file (config_/get-file config :indata "set-info.csv")]
-    (->> page
-         set-data_/parse-names
-         (remove #{"Unglued" "Unhinged"})
-         (map (partial hash-map :name))
-         (#(set-info_/combine % (slurp csv-file))))))
+(defn- await-completion []
+  (while (not (process-/done?))
+    (progress-report!)
+    (Thread/sleep 1500)))
 
-(defn get-cards
-  "Returns a seq of cards."
-  [config set]
-  (when (:download set)
-    (let [url (config_/get-url config :set (:name set))
-          page (util_/get-url-data config url)]
-      (card-data_/get-cards page))))
+(defn- set-data-setup! []
+  (let [string (slurp (config-/get-file :indata "set-info.csv"))
+        set-data (set-info-/get-set-info string)]
+    (dosync
+     (alter process-/state assoc-in [:sets] set-data))))
 
-(defn get-meta
-  "Returns a seq of card meta data."
-  [config set]
-  (when (:download set)
-    (let [url (config_/get-url config :checklist (:name set))
-          page (util_/get-url-data config url)]
-      (meta-data_/get-meta page))))
+(defn- validate! []
+  (println "Validation report:")
+  (doseq [card (-> @process-/state :cards vals)]
+    (let [errors (card-validation-/validate card)]
+      (when-not (empty? errors)
+        (println " " (:name card))
+        (doseq [err errors]
+          (println "   -" err))))))
 
-(defn get-card-details
-  "Returns a sequence of card-details for the card."
-  [config card]
-  (map (fn [id]
-         (let [url (config_/get-url config :card-details id)
-               page (util_/get-url-data config url)]
-           (card-detail-data_/get-details page id)))
-       (map :gatherer-id
-            (concat (:meta card)
-                    (-> card :multi first :meta)))))
+(defn setup! [base-dir options]
+  (config-/setup-config base-dir options)
+  (config-/create-dirs!)
+  (set-data-setup!))
 
-;;--------------------------------------------------
-;;
-;;  Transformation / cleanup
-;;
-(defn transform
-  "Applies a transformation to a card seq."
-  [type cards]
-  (if (= type ::all)
-    (transform_/process-all cards)
-    (transform_/process type cards)))
+(defn get-data! []
+  (process-/add-work! "Data download setup" work-/data-download)
+  (await-completion))
 
-(defn add-metadata
-  "Adds the information in the meta-coll to the card-coll."
-  [card-coll meta-coll]
-  (card-meta-merge_/process card-coll meta-coll))
+(defn package! []
+  (process-/add-work! "File creation setup" work-/file-creation)
+  (await-completion)
+  (process-/add-work! "Zip packaging setup" work-/zipit)
+  (await-completion))
 
-(defn add-card-details
-  [card detail-coll]
-  (card-details-merge_/process card detail-coll))
+(defn post-report! []
+  (fail-report!))
 
-(defn fix-set-codes
-  [config set-coll card-coll]
-  (set-code-update_/process config set-coll card-coll))
+(defn print-debug! []
+  (pprint (:cards @process-/state))
+  (flush)
+  (-> @process-/state
+      :cards vals first
+      card-xml-/to-xml
+      xml-/to-str
+      println))
 
-;;--------------------------------------------------
-;;
-;;  Output
-;;
-(defn write-cards
-  [config cards]
-  (log_/info "Write cards")
-  (with-open [writer (file-writer_/make-writer config :xml "cards.xml")]
-    (file-writer_/card-list writer cards)))
-
-(defn write-meta
-  [config cards sets]
-  (log_/info "Write meta")
-  (with-open [writer (file-writer_/make-writer config :xml "meta.xml")]
-    (file-writer_/meta-list writer cards sets)))
-
-(defn write-setinfo
-  [config set-coll]
-  (log_/info "Write set-info")
-  (with-open [writer (file-writer_/make-writer config :xml "setinfo.xml")]
-    (file-writer_/setinfo writer set-coll)))
-
-(defn write-cards-text
-  [config card-coll set-coll]
-  (log_/info "Write cards (text)")
-  (let [writer (file-writer_/make-writer config :text "mtg-data.txt")]
-    (file-writer_/card-list-text writer card-coll set-coll)))
-
-;;--------------------------------------------------
-;;
-;;  Packaging
-;;
-(defn create-package
-  [config]
-  (log_/info "Creating zip")
-  (let [zipname (format "mtg-data-%s.zip"
-                        (.format (SimpleDateFormat. "yyyy-MM-dd")
-                                 (System/currentTimeMillis)))
-        include-meta (-> config :opt :meta)]
-    (zip_/create
-     (config_/get-file config :zip zipname)
-     (concat (map #(vector (config_/get-file config :xml %) (str "xml/" %))
-                  (if include-meta
-                    ["cards.xml" "meta.xml" "setinfo.xml"]
-                    ["cards.xml" "setinfo.xml"]))
-             [[(config_/get-file config :indata "format.txt") "xml/format.txt"]]
-             (map #(vector (config_/get-file config :text %) (str "text/" %))
-                  ["mtg-data.txt"])))))
+(defn run! [base-dir options]
+  (setup! base-dir options)
+  (get-data!)
+  (when (:package options)
+    (package!))
+  (progress-report!)
+  (post-report!)
+  (when (:debug options)
+    (print-debug!))
+  (when (:validate options)
+    (validate!)))

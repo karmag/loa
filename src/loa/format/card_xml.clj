@@ -1,94 +1,81 @@
-
 (ns loa.format.card-xml
-  "Transforms data into xml format."
-  (:require (loa.format (common :as common_))
-            (loa.util (data :as data_)
-                      (xml :as xml_))))
+  (:use (loa.util (xml :only (tag tag-attr))))
+  (:require (loa.util (magic :as magic-))))
 
 (declare card-to-xml)
 
-;;--------------------------------------------------
-;;
-;;  Helpers
-;;
-(defn- tag
-  [name & values]
-  (when-not (empty? values)
-    (apply vector name {} values)))
-
-(defn- rule-tag
-  [rule]
-  [:rule
-   (merge {:no (:no rule)}
-          (if (:reminder rule)
-            {:reminder (:reminder rule)}
-            {}))
-   (:text rule)])
-
-(defn- type-tag
-  [type]
-  (let [meta (cond (data_/super-type type) {:type "super"}
-                   (data_/card-type type) {:type "card"}
-                   :else {:type "sub"})]
-    [:type meta type]))
-
-(defn- get-card-tags
-  "Returns a seq of tag for the card."
-  [card]
-  (filter identity
-          [(tag :name (:name card)) ;; TODO repetition, ugly, redo
-           (when (:cost card)
-             (tag :cost (common_/format-mana (:cost card))))
-           (when (:color card)
-             (tag :color (:color card)))
-           (when (:loyalty card)
-             (tag :loyalty (:loyalty card)))
-           (when-not (empty? (:types card))
-             (apply tag
-                    :typelist
-                    (map #(type-tag %) (:types card))))
-           (when (:pow card)
-             (tag :pow (:pow card)))
-           (when (:tgh card)
-             (tag :tgh (:tgh card)))
-           (when (:hand card)
-             (tag :hand (:hand card)))
-           (when (:life card)
-             (tag :life (:life card)))
-           (when-not (empty? (:rules card))
-             (apply vector
-                    :rulelist
-                    {}
-                    (map rule-tag (:rules card))))]))
-
-(defn- get-multi-card
-  "Returns the multi-part if any."
-  [card]
-  (when (:multi card)
-    (map (fn [multi]
-           (-> (card-to-xml multi)
-               (assoc 0 :multi)
-               (assoc 1 {:type (name (:multi-type multi))})))
-         (:multi card))))
-
-(defn- card-to-xml
-  "Transforms a card into xml-data."
-  [card]
+(defn- typelist [card]
   (apply tag
-         :card
-         (concat (get-card-tags card)
-                 (get-multi-card card))))
+         :typelist
+         (map #(tag-attr :type {:type (magic-/find-type %)} %)
+              (:typelist card))))
 
-;;--------------------------------------------------
-;;
-;;  Interface
-;;
-(defn data
-  "Returns the xml data."
-  [card]
-  (card-to-xml card))
+(defn- rulelist [card]
+  (when-not (empty? (:rulelist card))
+    (apply tag
+           :rulelist
+           (map #(tag-attr :rule (merge {:no (:number %)}
+                                        (when (:reminder %)
+                                          {:reminder (:reminder %)}))
+                           (:text %))
+                (:rulelist card)))))
 
-(defn string
-  "Returns the card data as xml-formatted string."
-  [card]
-  (xml_/pretty-string (data card)))
+(defn- find-multi-type [card]
+  (let [rules (apply str (map :text (:rulelist card)))]
+    (cond (.contains rules "transform") "transform"
+          (.contains rules "flip") "flip"
+          :else "double")))
+
+(defn- multi [card]
+  (when (:multi card)
+    (card-to-xml (:multi card)
+                 :multi
+                 {:type (find-multi-type card)})))
+
+(defn- part [card key & [card-key]]
+  (when-let [value (or (get card key)
+                       (get card card-key))]
+    (tag key value)))
+
+(defn- card-to-xml [card root-tag attrs]
+  (tag-attr root-tag
+            attrs
+            (part card :name)
+            (part card :cost)
+            (part card :color :color-indicator)
+            (part card :loyalty)
+            (typelist card)
+            (part card :pow)
+            (part card :tgh)
+            (part card :hand)
+            (part card :life)
+            (rulelist card)
+            (multi card)))
+
+(defn to-xml [card]
+  (card-to-xml card :card nil))
+
+;; <cardlist>
+;;   <card>
+;;     <name></name>
+;;     <cost></cost>
+;;     <color></color>
+;;     <loyalty></loyalty>
+;;     <typelist>
+;;       <type type=""></type>
+;;       ...
+;;     </typelist>
+;;     <pow></pow>
+;;     <tgh></tgh>
+;;     <hand></hand>
+;;     <life></life>
+;;     <rulelist>
+;;       <rule no="" reminder=""></rule>
+;;       ...
+;;     </rulelist>
+;;     <multi type="">
+;;       ...
+;;     </multi>
+;;   </card>
+;;   ...
+;; </cardlist>

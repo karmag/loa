@@ -1,20 +1,12 @@
-
 (ns loa.gatherer.set-data
-  "Retreives and parses set data from gatherer.")
+  (:require (loa.util (xml :as xml-))))
 
-;;-------------------------------------------------
-;;
-;;  Interface
-;;
-(defn parse-names
-  "Returns a seq of all the set-names found on the page. This page
-  should be the index page for gatherer."
+(defn find-set-names
+  "Returns a seq of all set-names found on the page."
   [page]
-  (->> page
-       (re-matches
-        #"(?m)(?s).*Filter Card Set:.*?<select.*?>(.*?)</select>.*")
-       second
-       (re-seq #">(.*?)<")
-       (map second)
-       (remove #(zero? (.length %)))
-       (map #(.replaceAll % "&quot;" "\""))))
+  (let [names (xml-/xml-> (xml-/from-html page)
+                          (xml-/search (xml-/re-attr= :name #"setAddText$"))
+                          (loa.util.xml/search :option)
+                          loa.util.xml/text)]
+    (doall
+     (remove (comp zero? count) names))))

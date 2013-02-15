@@ -1,55 +1,45 @@
-
 (ns loa.format.meta-xml
-  (:require (loa.util (data :as data_))))
+  (:use (loa.util (xml :only (tag tag-attr)))))
 
-(defn- prepare-set-data
-  [set-list]
-  (reduce #(assoc %1 (:name %2) %2) nil set-list))
+(defn- get-instance [data]
+  (tag :instance
+       (when (:set-name data)
+         (tag :set (:set-name data)))
+       (when (:rarity data)
+         (tag :rarity
+              (-> data :rarity name first str .toUpperCase)))
+       (when (:number data)
+         (tag :number (:number data)))
+       (when (:artist data)
+         (tag :artist (:artist data)))
+       (when-let [artist (-> data :meta :artist)]
+         (tag :multi
+              (tag :artist
+                   artist)))))
 
-(defn- tag
-  [name value]
-  (when value
-    [name {} value]))
+(defn- get-all-instances [card]
+  (map get-instance
+       (->> card :sets vals (sort-by :set-name))))
 
-(defn- meta-to-instance
-  [meta multi-meta set-data]
-  [:instance {}
-   (concat [(tag :set (get-in set-data [(:set meta) :code]))]
-           (map #(tag %1 (%1 meta)) [:rarity :number :artist :flavor-text])
-           (when multi-meta
-             [[:multi {}
-               (map #(tag %1 (%1 multi-meta)) [:artist :flavor-text])]]))])
+(defn to-xml [card]
+  (when-not (empty? (:sets card))
+    (apply tag-attr
+           :card
+           {:name (:name card)}
+           (get-all-instances card))))
 
-(defn- get-complement-meta
-  [card meta]
-  (let [refine (fn [meta]
-                 (map #(% meta) [:set :number]))]
-    (->> (:multi card)
-         first
-         :meta
-         (filter (fn [other]
-                   (= (refine meta)
-                      (refine other))))
-         first)))
-
-(defn- to-instance
-  [card set-data]
-  [:card {}
-   (concat
-    (->> (:meta card)
-         (map #(update-in % [:rarity] (comp :code data_/rarity-mapping)))
-         (sort-by :set)
-         (map #(meta-to-instance %
-                                 (get-complement-meta card %)
-                                 set-data))
-         (cons [:name (:name card)])))])
-
-;;--------------------------------------------------
-;;
-;;  Interface
-;;
-(defn data
-  [cards set-list]
-  (let [set-data (prepare-set-data set-list)]
-    [:metalist {}
-     (map #(to-instance % set-data) cards)]))
+;; <metalist>
+;;   <card name="...">
+;;     <instance>
+;;       <set></set>
+;;       <rarity></rarity>
+;;       <number></number>
+;;       <artist></artist>
+;;       <multi>
+;;         <artist></artist>
+;;       </multi>
+;;     </instance>
+;;     ...
+;;   </card>
+;;   ...
+;; </metalist>

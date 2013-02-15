@@ -1,134 +1,136 @@
-Block,Name,Code,Release date,Cards,Common,Uncommon,Rare,Mythic rare,Basic land
-Core,Limited Edition Alpha,LEA,1993-08-05,295,74,95,116,,10
-Core,Limited Edition Beta,LEB,1993-10-01,302,75,95,117,,15
-Core,Unlimited Edition,2ED,1993-12-01,302,75,95,117,,15
-Core,Revised Edition,3ED,1994-04-01,306,75,95,121,,15
-Core,Fourth Edition,4ED,1995-04-01,378,121,121,121,,15
-Core,Fifth Edition,5ED,1997-03-24,449,165,132,132,,20
-Core,Classic Sixth Edition,6ED,1999-04-28,350,110,110,110,,20
-Core,Seventh Edition,7ED,2001-04-11,350,110,110,110,,20
-Core,Eighth Edition,8ED,2003-07-28,357,110,110,110,,20
-Core,Ninth Edition,9ED,2005-07-29,359,110,110,110,,20
-Core,Tenth Edition,10E,2007-07-14,383,121,121,121,,20
-Core,Magic 2010,M10,2009-07-17,249,101,60,53,,20
-Core,Magic 2011,M11,2010-07-16,249,101,60,53,15,20
-Core,Magic 2012,M12,2011-07-15,249,101,60,53,15,20
-Core,Magic 2013,M13,2012-07-13,249,,,,,
-Early sets,Arabian Nights,ARN,1993-12-01,92,40,19,32,,1
-Early sets,Antiquities,ATQ,1994-03-01,100,30,44,26,,
-Early sets,Legends,LEG,1994-06-01,310,75,114,121,,
-Early sets,The Dark,DRK,1994-08-01,119,40,44,35,,
-Early sets,Fallen Empires,FEM,1994-11-01,187,121,30,36,,
-Early sets,Homelands,HML,1995-10-01,140,50,47,43,,
-Ice Age,Ice Age,ICE,1995-06-01,383,121,121,121,,20
-Ice Age,Alliances,ALL,1996-06-10,199,112,43,46,,
-Ice Age,Coldsnap,CSP,2006-07-21,155,60,55,40,,
-Mirage,Mirage,MIR,1996-10-08,350,110,110,110,,20
-Mirage,Visions,VIS,1997-02-03,167,62,55,50,,
-Mirage,Weatherlight,WTH,1997-06-09,167,62,55,50,,
-Tempest,Tempest,TMP,1997-10-14,350,110,110,110,,20
-Tempest,Stronghold,STH,1998-03-02,143,55,44,44,,
-Tempest,Exodus,EXO,1998-06-15,143,55,44,44,,
-Urza,Urza's Saga,USG,1998-10-12,350,110,110,110,,20
-Urza,Urza's Legacy,ULG,1999-02-15,143,55,44,44,,
-Urza,Urza's Destiny,UDS,1999-06-07,143,55,44,44,,
-Masques,Mercadian Masques,MMQ,1999-10-04,350,110,110,110,,20
-Masques,Nemesis,NEM,2000-02-14,143,55,44,44,,
-Masques,Prophecy,PCY,2000-06-05,143,55,44,44,,
-Invasion,Invasion,INV,2000-10-02,350,110,110,110,,20
-Invasion,Planeshift,PLS,2001-02-05,143,55,44,44,,
-Invasion,Apocalypse,APC,2001-06-04,143,55,44,44,,
-Odyssey,Odyssey,ODY,2001-10-01,350,110,110,110,,20
-Odyssey,Torment,TOR,2002-02-04,143,55,44,44,,
-Odyssey,Judgment,JUD,2002-05-27,143,55,44,44,,
-Onslaught,Onslaught,ONS,2002-10-07,350,110,110,110,,20
-Onslaught,Legions,LGN,2003-02-03,145,55,45,45,,
-Onslaught,Scourge,SCG,2003-05-26,143,55,44,44,,
-Mirrodin,Mirrodin,MRD,2003-10-02,306,110,88,88,,20
-Mirrodin,Darksteel,DST,2004-02-06,165,55,55,55,,
-Mirrodin,Fifth Dawn,5DN,2004-06-04,165,55,55,55,,
-Kamigawa,Champions of Kamigawa,CHK,2004-10-01,306,110,88,88,,20
-Kamigawa,Betrayers of Kamigawa,BOK,2005-02-04,165,55,55,55,,
-Kamigawa,Saviors of Kamigawa,SOK,2005-06-03,165,55,55,55,,
-Ravnica,Ravnica: City of Guilds,RAV,2005-10-07,306,110,88,88,,20
-Ravnica,Guildpact,GPT,2006-02-03,165,55,55,55,,
-Ravnica,Dissension,DIS,2006-05-05,180,60,60,60,,
-Time Spiral,Time Spiral,TSP,2006-10-06,301,121,80,80,,20
-Time Spiral,Time Spiral "Timeshifted",TSB,2006-10-06,121,,,,,
-Time Spiral,Planar Chaos,PLC,2007-02-02,165,40,40,40,,
-Time Spiral,Future Sight,FUT,2007-05-04,180,33,33,33,,
-Lorwyn,Lorwyn,LRW,2007-10-12,301,121,80,80,,20
-Lorwyn,Morningtide,MOR,2008-02-01,150,60,40,50,,
-Shadowmoor,Shadowmoor,SHM,2008-05-02,301,121,80,80,,20
-Shadowmoor,Eventide,EVE,2008-07-25,180,60,60,60,,
-Shards of Alara,Shards of Alara,ALA,2008-10-03,249,101,60,53,15,20
-Shards of Alara,Conflux,CON,2009-02-06,145,60,40,35,10,
-Shards of Alara,Alara Reborn,ARB,2009-04-30,145,60,40,35,10,
-Zendikar,Zendikar,ZEN,2009-10-02,249,101,60,53,15,20
-Zendikar,Worldwake,WWK,2010-02-05,145,,,,,
-Zendikar,Rise of the Eldrazi,ROE,2010-04-23,248,,,,,
-Scars of Mirrodin,Scars of Mirrodin,SOM,2010-10-01,249,101,60,53,15,20
-Scars of Mirrodin,Mirrodin Besieged,MBS,2011-02-04,155,60,40,35,10,10
-Scars of Mirrodin,New Phyrexia,NPH,2011-05-13,175,60,60,35,10,10
-Innistrad,Innistrad,ISD,2011-09-30,264,107,67,59,16,15
-Innistrad,Dark Ascension,DKA,2012-02-03,158,64,44,38,12,
-Innistrad,Avacyn Restored,AVR,2012-05-04,244,101,60,53,15,15
-Return to Ravnica,Return to Ravnica,RTR,2012-10-05,274,101,80,53,15,25
-,,,,,,,,,
-,Chronicles,CHR,1995-07,125,37,43,45,,
-,Renaissance,,1995-08,121,51,40,31,,
-,Rivals Quick Start Set,,1996-07,,,,,,
-,Multiverse Gift Box,,1996-11,,,,,,
-,Anthologies,ATH,1998-11,,,,,,
-,Battle Royale Box Set,BRB,1999-11-12,,,,,,
-,Beatdown Box Set,BTD,2000-12,,,,,,
-,Deckmasters,DKM,2001-12,,,,,,
-,,,,,,,,,
-Duel Decks,Duel Decks: Elves vs. Goblins,EVG,2007-11-16,,,,,,
-Duel Decks,Duel Decks: Jace vs. Chandra,JVC,2008-11-07,,,,,,
-Duel Decks,Duel Decks: Divine vs. Demonic,DVD,2009-04-10,,,,,,
-Duel Decks,Duel Decks: Garruk vs. Liliana,GVL,2009-10-30,,,,,,
-Duel Decks,Duel Decks: Phyrexia vs. the Coalition,PVC,2010-03-19,,,,,,
-Duel Decks,Duel Decks: Elspeth vs. Tezzeret,EVT,2010-09-03,,,,,,
-Duel Decks,Duel Decks: Knights vs. Dragons,DDG,2011-04-01,,,,,,
-Duel Decks,Duel Decks: Ajani vs. Nicol Bolas,DDH,2011-09-02,,,,,,
-Duel Decks,Duel Decks: Venser vs. Koth,AAA,2012-03-30,,,,,,
-Duel Decks,Duel Decks: Izzet vs. Golgari,DDJ,2012-09-07,,,,,,
-,,,,,,,,,
-Premium Deck Series,Premium Deck Series: Slivers,H09,2009-11-20,,,,,,
-Premium Deck Series,Premium Deck Series: Fire and Lightning,PD2,2010-11-19,,,,,,
-Premium Deck Series,Premium Deck Series: Graveborn,PD3,2011-11-18,,,,,,
-,,,,,,,,,
-From the Vault,From the Vault: Dragons,FVD,2008-08-29,,,,,,
-From the Vault,From the Vault: Exiled,FVE,2009-08-28,,,,,,
-From the Vault,From the Vault: Relics,FVR,2010-08-27,,,,,,
-From the Vault,From the Vault: Legends,V11,2011-08-26,,,,,,
-From the Vault,From the Vault: Realms,V12,2012-08-31,,,,,,
-,,,,,,,,,
-Portal,Portal,POR,1997-06,222,97,50,55,,20
-Portal,Portal Second Age,P02,1998-06,165,70,45,35,,15
-Portal,Portal Three Kingdoms,PTK,1999-05,180,55,55,55,,15
-,,,,,,,,,
-Starter,Starter 1999,S99,1999-07,173,63,55,35,,20
-Starter,Starter 2000,S00,2000-07,57,39,6,2,,10
-,,,,,,,,,
-,Masters Edition,MED,2007-09-10,195,60,60,60,,15
-,Masters Edition II,ME2,2008-09-22,245,80,80,80,,
-,Masters Edition III,ME3,2009-09-07,230,75,70,70,,15
-,Masters Edition IV,ME4,2011-01-10,269,80,72,105,,12
-,,,,,,,,,
-Un*,Unglued,UGL,1998-08-17,88,33,22,28,,5
-Un*,Unhinged,UNH,2004-11-19,141,55,40,40,,5
-,,,,,,,,,
-,Planechase,HOP,2009-09-04,,,,,,
-,Planechase 2012 Edition,PC2,2012-06-01,,,,,,
-,,,,,,,,,
-Vanguard,Vanguard,VG,,,,,,,
-,,,,,,,,,
-,Archenemy,ARC,2010-06-18,,,,,,
-,,,,,,,,,
-,Magic: The Gathering-Commander,COM,2011-06-17,,,,,,
-,,,,,,,,,
-,Dreamcast,SDC,2001-06,,,,,,
-,Promo set for Gatherer,PRO,,,,,,,
-,Astral,ASTRAL,1997-04,,,,,,
+Block,Name,Release date,Code
+Core,Limited Edition Alpha,1993-08-05
+Core,Limited Edition Beta,1993-10-01
+Core,Unlimited Edition,1993-12-01
+Core,Revised Edition,1994-04-01
+Core,Fourth Edition,1995-04-01
+Core,Fifth Edition,1997-03-24
+Core,Classic Sixth Edition,1999-04-28
+Core,Seventh Edition,2001-04-11
+Core,Eighth Edition,2003-07-28
+Core,Ninth Edition,2005-07-29
+Core,Tenth Edition,2007-07-14
+Core,Magic 2010,2009-07-17
+Core,Magic 2011,2010-07-16
+Core,Magic 2012,2011-07-15
+Core,Magic 2013,2012-07-13
+Early sets,Arabian Nights,1993-12-01
+Early sets,Antiquities,1994-03-01
+Early sets,Legends,1994-06-01
+Early sets,The Dark,1994-08-01
+Early sets,Fallen Empires,1994-11-01
+Early sets,Homelands,1995-10-01
+Ice Age,Ice Age,1995-06-01
+Ice Age,Alliances,1996-06-10
+Ice Age,Coldsnap,2006-07-21
+Mirage,Mirage,1996-10-08
+Mirage,Visions,1997-02-03
+Mirage,Weatherlight,1997-06-09
+Tempest,Tempest,1997-10-14
+Tempest,Stronghold,1998-03-02
+Tempest,Exodus,1998-06-15
+Urza,Urza's Saga,1998-10-12
+Urza,Urza's Legacy,1999-02-15
+Urza,Urza's Destiny,1999-06-07
+Masques,Mercadian Masques,1999-10-04
+Masques,Nemesis,2000-02-14
+Masques,Prophecy,2000-06-05
+Invasion,Invasion,2000-10-02
+Invasion,Planeshift,2001-02-05
+Invasion,Apocalypse,2001-06-04
+Odyssey,Odyssey,2001-10-01
+Odyssey,Torment,2002-02-04
+Odyssey,Judgment,2002-05-27
+Onslaught,Onslaught,2002-10-07
+Onslaught,Legions,2003-02-03
+Onslaught,Scourge,2003-05-26
+Mirrodin,Mirrodin,2003-10-02
+Mirrodin,Darksteel,2004-02-06
+Mirrodin,Fifth Dawn,2004-06-04
+Kamigawa,Champions of Kamigawa,2004-10-01
+Kamigawa,Betrayers of Kamigawa,2005-02-04
+Kamigawa,Saviors of Kamigawa,2005-06-03
+Ravnica,Ravnica: City of Guilds,2005-10-07
+Ravnica,Guildpact,2006-02-03
+Ravnica,Dissension,2006-05-05
+Time Spiral,Time Spiral,2006-10-06
+Time Spiral,Time Spiral "Timeshifted",2006-10-06
+Time Spiral,Planar Chaos,2007-02-02
+Time Spiral,Future Sight,2007-05-04
+Lorwyn,Lorwyn,2007-10-12
+Lorwyn,Morningtide,2008-02-01
+Shadowmoor,Shadowmoor,2008-05-02
+Shadowmoor,Eventide,2008-07-25
+Shards of Alara,Shards of Alara,2008-10-03
+Shards of Alara,Conflux,2009-02-06
+Shards of Alara,Alara Reborn,2009-04-30
+Zendikar,Zendikar,2009-10-02
+Zendikar,Worldwake,2010-02-05
+Zendikar,Rise of the Eldrazi,2010-04-23
+Scars of Mirrodin,Scars of Mirrodin,2010-10-01
+Scars of Mirrodin,Mirrodin Besieged,2011-02-04
+Scars of Mirrodin,New Phyrexia,2011-05-13
+Innistrad,Innistrad,2011-09-30
+Innistrad,Dark Ascension,2012-02-03
+Innistrad,Avacyn Restored,2012-05-04
+Return to Ravnica,Return to Ravnica,2012-10-05
+Return to Ravnica,Gatecrash,2013-02-01
+
+,Chronicles,1995-07
+,Renaissance,1995-08
+,Rivals Quick Start Set,1996-07
+,Multiverse Gift Box,1996-11
+,Anthologies,1998-11
+,Battle Royale Box Set,1999-11-12
+,Beatdown Box Set,2000-12
+,Deckmasters,2001-12
+
+Duel Decks,Duel Decks: Elves vs. Goblins,2007-11-16
+Duel Decks,Duel Decks: Jace vs. Chandra,2008-11-07
+Duel Decks,Duel Decks: Divine vs. Demonic,2009-04-10
+Duel Decks,Duel Decks: Garruk vs. Liliana,2009-10-30
+Duel Decks,Duel Decks: Phyrexia vs. the Coalition,2010-03-19
+Duel Decks,Duel Decks: Elspeth vs. Tezzeret,2010-09-03
+Duel Decks,Duel Decks: Knights vs. Dragons,2011-04-01
+Duel Decks,Duel Decks: Ajani vs. Nicol Bolas,2011-09-02
+Duel Decks,Duel Decks: Venser vs. Koth,2012-03-30
+Duel Decks,Duel Decks: Izzet vs. Golgari,2012-09-07
+
+Premium Deck Series,Premium Deck Series: Slivers,2009-11-20
+Premium Deck Series,Premium Deck Series: Fire and Lightning,2010-11-19
+Premium Deck Series,Premium Deck Series: Graveborn,2011-11-18
+
+From the Vault,From the Vault: Dragons,2008-08-29
+From the Vault,From the Vault: Exiled,2009-08-28
+From the Vault,From the Vault: Relics,2010-08-27
+From the Vault,From the Vault: Legends,2011-08-26
+From the Vault,From the Vault: Realms,2012-08-31
+
+Portal,Portal,1997-06
+Portal,Portal Second Age,1998-06
+Portal,Portal Three Kingdoms,1999-05
+
+Starter,Starter 1999,1999-07
+Starter,Starter 2000,2000-07
+
+,Masters Edition,2007-09-10
+,Masters Edition II,2008-09-22
+,Masters Edition III,2009-09-07
+,Masters Edition IV,2011-01-10
+
+Un*,Unglued,1998-08-17
+Un*,Unhinged,2004-11-19
+
+,Planechase,2009-09-04
+,Planechase 2012 Edition,2012-06-01
+
+Vanguard,Vanguard,
+
+,Archenemy,2010-06-18
+
+,Magic: The Gathering-Commander,2011-06-17
+,Commander's Arsenal,2012-11-02
+
+,Dreamcast,2001-06,DREAM
+,Promo set for Gatherer,
+,Astral,1997-04,ASTRAL

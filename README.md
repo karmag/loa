@@ -3,42 +3,64 @@
 Loa is a program that parses the information from
 http://gatherer.wizards.com and produces XML formatted data.
 
-## Quickstart
+# Quickstart
 
 1. Get [leiningen](https://github.com/technomancy/leiningen)
-2. lein deps
-3. lein run --write
+2. Setup dependencies (see below)
+3. `lein run --meta --language --package`
 
 The output can be found in the data/zip directory.
 
-## Details
+## Dependency
 
-### Options
+1. Get [ants](https://github.com/karmag/ants)
+2. lein install
 
-    lein run --write
+# Details
+
+## Options
+
+    lein run --meta --language --package
 
 Produces zip-file with current date.
 
     lein run --debug --set mirrodin alara --card forest demon
 
 `--debug` prints the internal data to the console. `--set` and
-`--card` narrows the set of data to sets and cards that contain any of
-the given strings.
+`--card` narrows the set of data to sets and cards whose names contain
+any of the given strings.
 
-### Program flow
+## Structure
 
-1. Download set and card data.
-2. Parse html into internal data format.
-3. Write data as XML and text.
-4. Create zip.
+### Source
 
-The program will download the english version of the cards from
-gatherer. This is around 800Mb of data in some 20k files which means
-it usually takes a while. The downloaded files are cached meaning that
-the program can be terminated and restarted without losing to much
-information.
+    src/
+    '-- loa
+        |-- cleanup
+        |-- format
+        |-- gatherer
+        |-- indata
+        |-- program
+        |-- util
+        '-- validation
 
-### Structure
+**cleanup** has functions and data for processing "raw" cards (from
+  gatherer). Also contains information about cards not in gatherer.
+
+**format** is for transforming the internal data represenation to xml.
+
+**gatherer** functions for parsing gatherer html pages.
+
+**indata** processing of data that is not fetched from gatherer.
+
+**program** functions that combine the other parts into a proper
+  application.
+
+**util** non-application specific functionality.
+
+**validation** functions for data validation.
+
+### Data
 
     data/
     |-- indata/

@@ -1,5 +1,7 @@
+(ns loa.util.magic)
 
-(ns loa.util.data)
+;;--------------------------------------------------
+;; data
 
 (def super-type #{"Basic" "Legendary" "Ongoing" "Snow" "World"})
 
@@ -47,30 +49,33 @@
     "Mountaincycling" "Forestcycling"
     "Basic landcycling"})
 
-(def ascii-mapping
-  {
-   \u00ae ""
-   \u00c6 "AE"
-   \u00e0 "a"
-   \u00e1 "a"
-   \u00e2 "a"
-   \u00e9 "e"
-   \u00ed "i"
-   \u00f6 "o"
-   \u00fa "u"
-   \u00fb "u"
-   \u2014 "-"
-   \u2018 "'"
-   \u2019 "'"
-   })
+(def token-name
+     #{"Beast"
+       "Demon"
+       "Elephant"
+       "Elemental"
+       "Elemental Shaman"
+       "Elf Warrior"
+       "Goblin"
+       "Hornet"
+       "Minion"
+       "Saproling"
+       "Spirit"
+       "Thrull"
 
-(def rarity-mapping
-  {
-   :common      {:code "C"}
-   :uncommon    {:code "U"}
-   :rare        {:code "R"}
-   :mythic      {:code "M"}
-   :land        {:code "L"}
-   :promo       {:code "P"}
-   :special     {:code "S"}
-   })
+       "Goblin token card"
+       "Pegasus token card"
+       "Sheep token card"
+       "Soldier token card"
+       "Squirrel token card"
+       "Zombie token card"})
+
+;;--------------------------------------------------
+;; functions
+
+(defn find-type
+  "Returns the type of a single type from the typeline of a card."
+  [type]
+  (cond (super-type type) "super"
+        (card-type type) "card"
+        :else "sub"))

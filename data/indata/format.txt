@@ -68,6 +68,11 @@ they originally were on the same line.
         <rule no="1">Protection from red</rule>
     </rulelist>
 
+    ("Protection from" is the only rule that is changed when moved
+    into the rulelist. Protection from multiple items turns into
+    multiple protection elements. Other than that the only thing that
+    is changed is capitalization.)
+
 <hand> and <life> is used for Vanguard cards.
 
 The <multi> element is used if the card contains multiple facets. This
@@ -81,17 +86,14 @@ o-----------------------------o
 Contains the meta-data for the cards.
 
 <metalist>
-  <card>
-    <name></name>
+  <card name="">
     <instance>
       <set></set>
       <rarity></rarity>
       <number></number>
       <artist></artist>
-      <flavor-text></flavor-text>
       <multi>
         <artist></artist>
-        <flavor-text></flavor-text>
       </multi>
     </instance>
     ...
@@ -99,18 +101,54 @@ Contains the meta-data for the cards.
   ...
 </metalist>
 
-The <set> element contains the set-code for the set. The set-code to
-name mapping is available in setinfo.xml. The <instance> element can
-be repeated any number of times.
+The <set> element contains the name of the set. The <instance> element
+can be repeated any number of times.
 
 Rarity is given as the first letter of the corresponding
 rarity. (Common, Uncommon, Rare, Mythic Rare, Special, Promo, Land)
 
 Number is the collectors number for the card.
 
-<multi> may be present if the card has multiple facets. It contains
-the data relevant to that facet but does not duplicate data that can
-be found elsewhere.
+<multi> may be present if the card has multiple facets.
+
+
+o-----------------------------o
+|  language_*.xml             |
+o-----------------------------o
+Language files contains the information that was originally printed on
+the cards. This only relates to text so for instance power/toughness
+and cost are not included here.
+
+<languagelist language="">
+  <card name="">
+    <set name="">
+      <name></name>
+      <type></type>
+      <rulelist>
+        <rule></rule>
+        ...
+      </rulelist>
+      <flavor></flavor>
+      <multi>
+        <name></name>
+        <type></type>
+        <rulelist>
+          <rule></rule>
+          ...
+        </rulelist>
+        <flavor></flavor>
+      </multi>
+    </set>
+    ...
+  </card>
+  ...
+</languagelist>
+
+<type> contains the entire typeline as a single item.
+
+Each <rule> element corresponds to a rule line on the card.
+
+<flavor> contains the flavor text if available.
 
 
 o-----------------------------o
@@ -124,14 +162,13 @@ General information about the sets; release date, card count.
     <block></block>
     <code></code>
     <release-date></release-date>
-    <cards>
-      <total></total>
-      <basic-land></basic-land>
-      <common></common>
-      <uncommon></uncommon>
-      <rare></rare>
-      <mythic-rare></mythic-rare>
-    </cards>
   </set>
   ...
 </setlist>
+
+The only mandatory element is <name>.
+
+The code element is fetched from gatherer. Set codes are not fixed and
+may change.
+
+The release-date is given as either yyyy-mm-dd or yyyy-dd.
