@@ -73,11 +73,12 @@
 (defn print-debug! []
   (pprint (:cards @process-/state))
   (flush)
-  (-> @process-/state
-      :cards vals first
-      card-xml-/to-xml
-      xml-/to-str
-      println))
+  (->> @process-/state
+       :cards vals
+       (map (comp println
+                  xml-/to-str
+                  card-xml-/to-xml))
+       dorun))
 
 (defn run! [base-dir options]
   (setup! base-dir options)
