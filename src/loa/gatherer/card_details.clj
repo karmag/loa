@@ -238,6 +238,25 @@
                  (assoc m name code))
                nil)))
 
+(defn find-double-card-information
+  "Returns information about the other parts of the card if any."
+  [name page]
+  (when-let [[_ fst snd]
+             (re-find #"SubContentHeader_subtitleDisplay\">([^/]*)//([^<]*)<"
+                      page)]
+    (let [fst (.trim fst)
+          snd (.trim snd)
+          re (re-pattern
+              (format "part=([A-Za-z]+)[^>]+multiverseid=(\\d+)[^<]*%s // %s"
+                      fst
+                      snd))
+          [_ part gatherer-id] (re-find re page)
+          gatherer-id (Integer/parseInt gatherer-id)]
+      {:fst fst
+       :snd snd
+       :link {:part part
+              :gatherer-id gatherer-id}})))
+
 (comment
   {:gatherer-id 123456,
    :rarity "Common",

@@ -74,6 +74,29 @@
     (process-/add-work! (format "Language index '%s' (%d)" name id)
                         #(process-language-index name id))))
 
+(defn- get-maybe-double-card
+  "Downloads and does basic parsing of the card with id. If it is a
+  double card the second half will be downloaded as well and merged
+  with base card. This function returns [real-name, page, card]."
+  [name id]
+  (let [page (download-/get-url-data
+              (config-/get-url :card-details id))
+        double-info (card-details-/find-double-card-information name page)
+        card (card-details-/find-details page)
+        multi (when double-info
+                (-> (config-/get-url :double-card-details
+                                     (-> double-info :link :part)
+                                     (-> double-info :link :gatherer-id))
+                    download-/get-url-data
+                    card-details-/find-details))]
+    [(or (:fst double-info) name)
+     page
+     (if multi
+       (if (= (:fst double-info) name)
+         (assoc card :multi multi)
+         (assoc multi :multi card))
+       card)]))
+
 ;;--------------------------------------------------
 ;; download functions
 
@@ -100,9 +123,7 @@
   (inc-status! 1 :language :complete))
 
 (defn- process-card-meta-single [name id]
-  (let [details (card-details-/find-details
-                 (download-/get-url-data
-                  (config-/get-url :card-details id)))
+  (let [[name _ details] (get-maybe-double-card name id)
         details (card-cleanup-/cleanup details)
         set-data (get-in details [:sets id])]
     (dosync
@@ -121,14 +142,11 @@
 
 (defn- process-card [name id]
   (let [processed? (card-processed? name)
-        page (when-not processed?
-               (-> (config-/get-url :card-details id)
-                   download-/get-url-data))
+        [name page card] (or (when-not processed?
+                               (get-maybe-double-card name id))
+                             [name nil nil])
         card (when-not processed?
-               (-> page
-                   card-details-/find-details
-                   card-cleanup-/cleanup
-                   card-adjustment-/fix))]
+               (-> card card-cleanup-/cleanup card-adjustment-/fix))]
     (when-not (multi-name? card name)
       (when-not processed?
         (dosync
