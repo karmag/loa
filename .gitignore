@@ -7,7 +7,7 @@ pom.xml
 .lein-deps-sum
 
 data/text/*
-data/tmp-download/*
+data/tmp-download
 data/xml/*
 data/zip/*
 
