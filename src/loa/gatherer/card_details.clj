@@ -157,7 +157,7 @@
   [name value]
   (cleanup-value "All Sets:" value))
 
-(defmethod cleanup-value "Card #:"
+(defmethod cleanup-value "Card Number:"
   [name value]
   [:number (get-text value)])
 
@@ -174,7 +174,7 @@
   [:loyalty (get-text value)])
 
 (defn- cleanup-row [[key value]]
-  (let [key (-> key :content first .trim)]
+  (let [key (-> key xml-/from-xml xml-/text .trim)]
     (cleanup-value key value)))
 
 ;;--------------------------------------------------

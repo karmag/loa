@@ -3,6 +3,7 @@ lib
 *.jar
 
 .cake/*
+target/*
 pom.xml
 .lein-deps-sum
 
