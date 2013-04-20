@@ -64,16 +64,12 @@ any of the given strings.
 
     data/
     |-- indata/
-    |-- text/
     |-- tmp-download/
     |-- xml/
     '-- zip/
 
 **indata** contains data that is not currently available in other
   form.
-
-**text** is human-readable output. This file is generated from the
-  XML-data and should not be used as a data-source.
 
 **tmp-download** is where downloaded data is cached. This directory
   needs to be cleared if new data should be fetched from gatherer.
