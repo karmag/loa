@@ -242,7 +242,7 @@
   "Returns information about the other parts of the card if any."
   [name page]
   (when-let [[_ fst snd]
-             (re-find #"SubContentHeader_subtitleDisplay\">([^/]*)//([^<]*)<"
+             (re-find #"SubContentHeader_subtitleDisplay\"[^>]*>([^/]*)//([^<]*)<"
                       page)]
     (let [fst (.trim fst)
           snd (.trim snd)
