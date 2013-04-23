@@ -21,7 +21,7 @@
                 (:rulelist card)))))
 
 (defn- find-multi-type [card]
-  (let [rules (apply str (map :text (:rulelist card)))]
+  (let [rules (.toLowerCase (apply str (map :text (:rulelist card))))]
     (cond (.contains rules "transform") "transform"
           (.contains rules "flip") "flip"
           :else "double")))
