@@ -4,5 +4,5 @@
                  [org.clojure/data.xml "0.0.6"]
                  [org.clojure/data.zip "0.1.1"]
                  [org.jsoup/jsoup "1.7.1"]
-                 [ants "0.1.0"]]
+                 [ants "0.2.0"]]
   :main loa.loa)

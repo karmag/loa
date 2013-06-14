@@ -36,6 +36,7 @@
         (verify-options opts)
         (run! "." opts))
       (finally
+        (shutdown)
         (shutdown-agents)))
     (println "Runtime:"
              (human-time

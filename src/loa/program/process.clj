@@ -1,8 +1,11 @@
 (ns loa.program.process
-  (:require (ants (core :as ants-))))
+  (:require (karmag.ants (core :as ants-))))
 
-(def ants-instance (ants-/create
-                    :max-workers 8)) ;; TODO cli option
+(def ants-instance
+  (ants-/make-processor))
+
+(def optimizer-instance
+  (ants-/start-optimizer ants-instance :interval [1 :m]))
 
 (def status
   "The current processing status listing the number of currently known
@@ -20,6 +23,8 @@
   (ref {:cards {}
         :sets {}}))
 
+(def ^:private failed (atom []))
+
 ;;--------------------------------------------------
 ;; work interface
 
@@ -32,10 +37,25 @@
    (apply alter status f args)))
 
 (defn add-work! [name f]
-  (ants-/add-task! ants-instance f :name name))
+  (ants-/add ants-instance
+             (fn []
+               (try (f)
+                    (catch Throwable t
+                      (swap! failed conj {:exception t
+                                          :task {:f f, :name name}})
+                      (println (str "Failed task: " name " - " t)))))))
 
 (defn done? []
-  (ants-/finished? ants-instance))
+  (ants-/done? ants-instance))
 
 (defn snapshot []
-  (ants-/snapshot ants-instance))
+  (let [status (ants-/status ants-instance)]
+    {:failed @failed
+     :queue-size (- (:total-task-count status)
+                    (:completed-task-count status))
+     :workers-current (:active-threads status)
+     :workers-max (:maximum-pool-size status)}))
+
+(defn shutdown []
+  (ants-/release-optimizer optimizer-instance)
+  (ants-/shutdown ants-instance))

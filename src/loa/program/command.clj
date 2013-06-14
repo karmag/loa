@@ -15,7 +15,7 @@
                        (get-in @process-/status [key :complete])
                        (get-in @process-/status [key :total])))
         snapshot (process-/snapshot)
-        q (format "Queue: %d" (count (:queue snapshot)))
+        q (format "Queue: %d" (:queue-size snapshot))
         failed (format "Failed: %d" (count (:failed snapshot)))
         workers (format "Workers: %d / %d"
                         (:workers-current snapshot)
