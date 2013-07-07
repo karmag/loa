@@ -41,7 +41,9 @@
               sets))))
 
 (defn- filter-card-names [cards]
-  (let [cards (remove (comp magic-/token-name :name) cards)
+  (let [cards (remove #(magic-/token-name
+                        (or (:name %) (first %)))
+                      cards)
         texts (map #(.toLowerCase %) (config-/get-option :cards))]
     (if (empty? texts)
       cards
