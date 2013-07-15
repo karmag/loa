@@ -7,7 +7,7 @@ http://gatherer.wizards.com and produces XML formatted data.
 
 1. Get [leiningen](https://github.com/technomancy/leiningen)
 2. Setup dependencies (see below)
-3. `lein run --meta --language --package`
+3. `lein run --full`
 
 The output can be found in the data/zip directory.
 
@@ -20,9 +20,16 @@ The output can be found in the data/zip directory.
 
 ## Options
 
+    lein run --full
     lein run --meta --language --package
 
-Produces zip-file with current date.
+`--full` and `--meta --language --package` are equivalent. Produces
+zip-file with current date.
+
+    lein run --full --threads 4
+
+The number of threads default to the number of cores available on your
+machine but can be overridden with `--threads`.
 
     lein run --debug --set mirrodin alara --card forest demon
 

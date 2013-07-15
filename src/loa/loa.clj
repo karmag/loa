@@ -28,10 +28,16 @@
                  (rest convertions)
                  (format "%s %d%s" result whole unit)))))))
 
+(defn- fix-full-opt [opt]
+  (if (:full opt)
+    (assoc opt :meta [] :language [] :package [])
+    opt))
+
 (defn -main [& args]
   (let [start (System/currentTimeMillis)]
     (try
-      (let [opts (parse-args args)]
+      (let [opts (fix-full-opt
+                  (parse-args args))]
         (pprint opts)
         (verify-options opts)
         (run! "." opts))

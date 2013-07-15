@@ -22,8 +22,8 @@
             :indata (make-file base-dir "data" "indata")
             :zip    (make-file base-dir "data" "zip")}
      :url {:main "http://gatherer.wizards.com/Pages/Default.aspx"
-           :set "http://gatherer.wizards.com/Pages/Search/Default.aspx?output=spoiler&method=text&set=[%%22%s%%22]&special=true"
-           :checklist "http://gatherer.wizards.com/Pages/Search/Default.aspx?output=checklist&set=[%%22%s%%22]&special=true"
+           :set "http://gatherer.wizards.com/Pages/Search/Default.aspx?output=spoiler&method=text&set=[%%22%s%%22]&special=true&action=advanced"
+           :checklist "http://gatherer.wizards.com/Pages/Search/Default.aspx?output=checklist&set=[%%22%s%%22]&special=true&action=advanced"
            :card-details "http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=%d"
            :double-card-details "http://gatherer.wizards.com/Pages/Card/Details.aspx?part=%s&multiverseid=%d"
            :language-index "http://gatherer.wizards.com/Pages/Card/Languages.aspx?multiverseid=%d"

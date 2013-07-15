@@ -10,6 +10,10 @@
          (map #(tag-attr :type {:type (magic-/find-type %)} %)
               (:typelist card))))
 
+(defn- cleanup-rule-text [text]
+  (when text
+    (.replace text " ." ".")))
+
 (defn- rulelist [card]
   (when-not (empty? (:rulelist card))
     (apply tag
@@ -17,7 +21,7 @@
            (map #(tag-attr :rule (merge {:no (:number %)}
                                         (when (:reminder %)
                                           {:reminder (:reminder %)}))
-                           (:text %))
+                           (cleanup-rule-text (:text %)))
                 (:rulelist card)))))
 
 (defn- find-multi-type [card]

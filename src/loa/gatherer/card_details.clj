@@ -180,17 +180,31 @@
 ;;--------------------------------------------------
 ;; data extraction
 
+(defn- get-grids [page]
+  (let [grids (xml-/xml-> (xml-/from-html page)
+                          (xml-/search (xml-/attr= :class "rightCol"))
+                          xml-/node)
+        [_ fst-name snd-name]
+        (re-find #"SubContentHeader_subtitleDisplay\"[^>]*>([^/]*)//([^<]*)<"
+                 page)
+        actual-fst-name
+        (when fst-name
+          (first
+           (xml-/transform (first grids)
+                           (xml-/search (xml-/re-attr= :id #".*SubContent_.*nameRow"))
+                           (xml-/search (xml-/re-attr= :class #"value"))
+                           xml-/text)))]
+    (if (not= (.trim (or fst-name ""))
+              (.trim (or actual-fst-name "")))
+      (reverse grids)
+      grids)))
+
 (defn- get-rows [card-grid]
   (let [items
         (xml-/transform card-grid
                         (xml-/search (xml-/re-attr= :id #".*SubContent_.*Row"))
                         (xml-/search (xml-/re-attr= :class #"label|value")))]
     (partition 2 items)))
-
-(defn- get-grids [page]
-  (xml-/xml-> (xml-/from-html page)
-              (xml-/search (xml-/attr= :class "rightCol"))
-              xml-/node))
 
 (defn- combine-grids [grids]
   (case (count grids)
@@ -241,21 +255,23 @@
 (defn find-double-card-information
   "Returns information about the other parts of the card if any."
   [name page]
-  (when-let [[_ fst snd]
-             (re-find #"SubContentHeader_subtitleDisplay\"[^>]*>([^/]*)//([^<]*)<"
-                      page)]
-    (let [fst (.trim fst)
-          snd (.trim snd)
-          re (re-pattern
-              (format "part=([A-Za-z]+)[^>]+multiverseid=(\\d+)[^<]*%s // %s"
-                      fst
-                      snd))
-          [_ part gatherer-id] (re-find re page)
-          gatherer-id (Integer/parseInt gatherer-id)]
-      {:fst fst
-       :snd snd
-       :link {:part part
-              :gatherer-id gatherer-id}})))
+  ;; TODO not needed anymore?
+  #_(when-let [[_ fst snd]
+               (re-find #"SubContentHeader_subtitleDisplay\"[^>]*>([^/]*)//([^<]*)<"
+                        page)]
+      (let [fst (.trim fst)
+            snd (.trim snd)
+            re (re-pattern
+                (format "part=([A-Za-z]+)[^>]+multiverseid=(\\d+)[^<]*%s // %s"
+                        fst
+                        snd))
+            [_ part gatherer-id] (re-find re page)
+            gatherer-id (when gatherer-id
+                          (Integer/parseInt gatherer-id))]
+        {:fst fst
+         :snd snd
+         :link {:part part
+                :gatherer-id gatherer-id}})))
 
 (comment
   {:gatherer-id 123456,

@@ -4,9 +4,6 @@
 (def ants-instance
   (ants-/make-processor))
 
-(def optimizer-instance
-  (ants-/start-optimizer ants-instance :interval [1 :m]))
-
 (def status
   "The current processing status listing the number of currently known
   jobs and their status."
@@ -57,5 +54,7 @@
      :workers-max (:maximum-pool-size status)}))
 
 (defn shutdown []
-  (ants-/release-optimizer optimizer-instance)
   (ants-/shutdown ants-instance))
+
+(defn set-thread-count [n]
+  (ants-/configure ants-instance :maximum-pool-size n))

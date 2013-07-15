@@ -82,6 +82,9 @@
 
 (defn run! [base-dir options]
   (setup! base-dir options)
+  (when (:threads options)
+    (process-/set-thread-count
+     (Integer/parseInt (first (:threads options)))))
   (get-data!)
   (when (:package options)
     (package!))
