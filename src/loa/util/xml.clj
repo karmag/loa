@@ -55,6 +55,9 @@
         (recur (.replaceAll text k v)
                (dissoc escapes k))))))
 
+(defn- remove-scripts [text]
+  (.replaceAll text "(?s)<script.*?</script>" "--KILLED_SCRIPT--"))
+
 ;;--------------------------------------------------
 ;; xml construction
 
@@ -99,7 +102,8 @@
 (def from-xml clojure.zip/xml-zip)
 
 (defn from-string [string]
-  (-> (.getBytes string "UTF-8")
+  (-> string
+      (.getBytes "UTF-8")
       input-stream
       clojure.xml/parse
       from-xml))
@@ -109,6 +113,7 @@
       (.select "html")
       first
       (.toString)
+      remove-scripts
       unescape-text
       from-string))
 
