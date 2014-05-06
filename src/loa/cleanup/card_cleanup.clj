@@ -55,6 +55,9 @@
 (defn- fix-chaos [rule-text]
   (.replaceAll rule-text "chaos" "{C}"))
 
+(defn- fix-20+-mana [rule-text]
+  (.replaceAll rule-text "\\{(\\d)\\} (\\d)" "{$1$2}"))
+
 (defn- fix-type-delimiter [type-text]
   (-> type-text
       (.replaceAll "～ - " "～")
@@ -106,7 +109,7 @@
       (split-protection text)))
 
 (defn- fix-rule [number text]
-  (let [text (fix-chaos text)
+  (let [text (-> text fix-20+-mana fix-chaos)
         [text reminder] (reminder-split text)
         texts (map capitalize (split-rule text))]
     (cons {:text (first texts)
