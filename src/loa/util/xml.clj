@@ -45,7 +45,8 @@
    "&yacute;"  "ý"      "&yuml;"    "ÿ"
    "&laquo;"   "«"      "&raquo;"   "»"
    "&acute;"   "´"      "&iexcl;"   "¡"      "&iquest;" "¿"
-   "&middot;"  "·"      "&ordm;"    "º"      "&sup2;"   "²"})
+   "&middot;"  "·"      "&ordm;"    "º"      "&sup2;"   "²"
+   "--->"      "-->"})
 
 (defn- unescape-text [text]
   (loop [text text escapes escapes]
