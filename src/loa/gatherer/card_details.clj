@@ -74,7 +74,8 @@
   (-> text
       (.replaceAll "} ([:,.{])" "}$1")
       (.replaceAll "([\"(]) \\{" "$1{")
-      (.replaceAll " ' " " '")))
+      (.replaceAll " ' " " '")
+      (.replaceAll " ‘ " " ‘")))
 
 (defn- translate-image-string [xml]
   (->> (:content xml)

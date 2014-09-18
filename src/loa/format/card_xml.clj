@@ -32,9 +32,13 @@
 
 (defn- multi [card]
   (when (:multi card)
-    (card-to-xml (:multi card)
-                 :multi
-                 {:type (find-multi-type card)})))
+    (let [multi-type (find-multi-type card)
+          card (if (= "flip" multi-type)
+                 (update-in card [:multi] dissoc :cost)
+                 card)]
+      (card-to-xml (:multi card)
+                   :multi
+                   {:type multi-type}))))
 
 (defn- part [card key & [card-key]]
   (when-let [value (or (get card key)
