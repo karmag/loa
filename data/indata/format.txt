@@ -171,4 +171,5 @@ The only mandatory element is <name>.
 The code element is fetched from gatherer. Set codes are not fixed and
 may change.
 
-The release-date is given as either yyyy-mm-dd or yyyy-dd.
+The release-date is given as either yyyy-mm-dd or yyyy-mm.
+

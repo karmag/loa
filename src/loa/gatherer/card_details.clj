@@ -243,7 +243,7 @@
       base)))
 
 (defn find-set-codes [page]
-  (->> (re-seq #"Image.ashx?[^>]*set=(\w+)[^>]*alt=\"([^\"(]+)" page)
+  (->> (re-seq #"Image.ashx?[^>]*set=(\w+)[^>]*alt=\"([^\"]+) \([^)\"]*\)" page)
        (map (fn [[_ code name]]
               [(-> (.trim name)
                    (.replaceAll "&quot;" "\"")
