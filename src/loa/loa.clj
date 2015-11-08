@@ -10,7 +10,8 @@
    loa.util.util
    loa.format.card-xml
    loa.program.command
-   ))
+   )
+  (:gen-class))
 
 (defn- human-time [secs]
   (let [conv [["s" 1]

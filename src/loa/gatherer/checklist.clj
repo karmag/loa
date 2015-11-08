@@ -22,3 +22,13 @@
      (->> (map make-data parts)
           (set)
           (remove (comp nil? second))))))
+
+(defn find-page-numbers
+  "Returns a seq of page numbers."
+  [page]
+  (->> (re-seq #"page=(\d+)" page)
+       (map second)
+       (map #(Integer/parseInt %))
+       (reduce max)
+       inc
+       range))

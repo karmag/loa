@@ -3,12 +3,12 @@
 (defn- parse-csv
   [header lines]
   (let [header (-> header
-                   (.split ","))
+                   (.split "#"))
         header (->> header
                     (map (memfn toLowerCase))
                     (map #(.replace % " " "-"))
                     (map keyword))]
-    (map #(apply hash-map (interleave header (.split % ","))) lines)))
+    (map #(apply hash-map (interleave header (.split % "#"))) lines)))
 
 (defn- create-set-info
   [lines]

@@ -160,9 +160,13 @@
     (inc-status! 1 :card :complete)))
 
 (defn- process-set [name]
-  (let [cards (checklist-/find-cards
-               (download-/get-url-data
-                (config-/get-url :checklist name)))
+  (let [page0 (download-/get-url-data
+               (config-/get-url :checklist name 0))
+        page-numbers (checklist-/find-page-numbers page0)
+        cards (mapcat #(checklist-/find-cards
+                        (download-/get-url-data
+                         (config-/get-url :checklist name %)))
+                      page-numbers)
         cards (filter-card-names cards)]
     (inc-status! (count cards) :card :total)
     (doseq [[name id] cards]
